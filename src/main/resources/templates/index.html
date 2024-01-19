@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <h1>Indore Metro</h1>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="index.html">Login</a></li>
+        </ul>
+    </div>
+
+<!--    <div th:if="${session.message}"-->
+<!--          th:classappend="${session.message}">-->
+<!--        <p th:text="${session.message}">-->
+<!--        </p>-->
+<!--        <th:block th:text="${#session.removeAttribute('message')}"></th:block>-->
+
+<!--    </div>-->
+
+
+
+    <!-- Login/Singup -->
+    <div class="login-signup-container">
+        <div class="wrapper">
+            <div class="title-text">
+              <div class="title login">Login Form</div>
+              <div class="title signup">Signup Form</div>
+            </div>
+            <div class="form-container">
+              <div class="slide-controls">
+                <input type="radio" name="slide" id="login" checked>
+                <input type="radio" name="slide" id="signup">
+                <label for="login" class="slide login">Login</label>
+                <label for="signup" class="slide signup">Signup</label>
+                <div class="slider-tab"></div>
+              </div>
+              <div class="form-inner">
+                <form action="#" class="login">
+                  <div class="field">
+                    <input type="text" placeholder="UserName" required>
+                  </div>
+                  <div class="field">
+                    <input type="password" placeholder="Password" required>
+                  </div>
+                  <div class="pass-link"><a href="#">Forgot password?</a></div>
+                  <div class="field btn">
+                    <div class="btn-layer"></div>
+                    <input type="submit" value="Login">
+                  </div>
+                  <div class="signup-link">Not a member? <a href="">Signup now</a></div>
+                </form>
+                <form th:action="@{/register}" th:object="${data}" method="post" class="signup">
+                  <div class="field">
+                    <input type="text" name="email" placeholder="Email Address" required>
+                  </div>
+                  <div class="field">
+                    <input type="text" name="name" placeholder="Full Name" required>
+                  </div>
+                  <div class="field">
+                    <input type="text" name="number" placeholder="Number" required>
+                  </div>
+                  <div class="field">
+                    <input type="password" name="password" placeholder="Password" required>
+                  </div>
+                  <div class="field">
+                    <input type="password" name="confirm" placeholder="Confirm password" required>
+                  </div>
+                  <div class="field btn">
+                    <div class="btn-layer"></div>
+                    <input type="submit" value="Signup">
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
