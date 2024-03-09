@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Metro Reservation System</title>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+</head>
+<style>
+    /* Navbar */
+    .navbar {
+        background-color: #fff; /* Changed background color to white */
+        color: #000; /* Changed text color to black */
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Added shadow effect */
+    }
+
+    .navbar h1 {
+        margin: 0;
+    }
+
+    .nav-links {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+    }
+
+    .nav-links li {
+        margin-right: 30px;
+    }
+
+    .nav-links a {
+        text-decoration: none;
+        color: #000; /* Changed text color to black */
+        position: relative;
+    }
+
+    .nav-links a::after {
+        content: "";
+        display: block;
+        width: 0;
+        height: 3px;
+        background-color: crimson; /* Changed line color to black */
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        transition: width 0.3s ease-in-out;
+    }
+
+    .nav-links a:hover::after {
+        width: 100%;
+        left: 0;
+    }
+
+
+    .calculate-btn {
+        font-family: poppins;
+        font-size: 17px;
+        width: 80px;
+        height: 40px;
+        padding: 0;
+        border: none;
+        border-radius: 5px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        background-color: crimson;
+        color: #fff;
+        cursor: pointer;
+        border: 2px solid crimson;
+        transition: background-color 0.3s ease;
+    }
+
+    .calculate-btn:hover {
+        background-color: #fff;
+        color: crimson;
+        border: 2px solid crimson;
+    }
+
+</style>
+
+<body>
+
+<nav class="navbar">
+    <h1> Hi, Welcome <span th:text ="*{userDetails}"></span> </h1></div>
+
+    <ul class="nav-links">
+        <li><a href="" th:href="@{/admin}">Home</a></li>
+        <li><a href="" sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout</a></li>
+        <li>
+            <a href="" sec:authorize="isAnonymous()" th:href="@{/login}">Login</a>
+            <span> / </span>
+            <a href="" sec:authorize="isAnonymous()" th:href="@{/registration}">Register</a>
+        </li>
+
+    </ul>
+</nav>
+
+
+<br><br><br><br><br><br><br>
+<!-- Create HTML registration form -->
+<div class="container">
+    <div th:if="${param.success}">
+        <div class="alert alert-info">Record deleted successfully.</div>
+    </div>
+    <div class="row">
+
+
+
+        <form th:action="@{/admin/allRecords}" method="post" th:object="${data}">
+
+
+            <div class ="container">
+
+                <div th:if= "${data != null}">
+
+                    <table border="1" class = "table table-striped table-responsive-md">
+                        <thead>
+                        <tr>
+                            <th>
+
+                                From
+                            </th>
+                            <th>
+
+                                To
+                            </th>
+                            <th>
+
+                                Time
+                            </th>
+                            <th>
+
+                                Metro Name
+                            </th>
+                            <th>
+
+                                Price
+                            </th>
+                            <th> Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="metro : ${data}">
+                            <td th:text="${metro.fromDestination}"></td>
+                            <td th:text="${metro.toDestination}"></td>
+                            <td th:text="${metro.time}"></td>
+                            <td th:text="${metro.metroName}"></td>
+                            <td th:text="${metro.price}"></td>
+                            <td> <a th:href="@{/admin/delete/{id}(id=${metro.id})}" class="calculate-btn">Delete</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

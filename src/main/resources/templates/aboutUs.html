@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" >
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Us</title>
+    <link rel="stylesheet" href="aboutUs.css" />
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+
+        /* Navbar */
+        .navbar {
+            background-color: #fff; /* Changed background color to white */
+            color: #000; /* Changed text color to black */
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Added shadow effect */
+        }
+
+        .navbar h1 {
+            margin: 0;
+        }
+
+        .nav-links {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .nav-links li {
+            margin-right: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #000; /* Changed text color to black */
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: "";
+            display: block;
+            width: 0;
+            height: 3px;
+            background-color: crimson; /* Changed line color to black */
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s ease-in-out;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+            left: 0;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        .container {
+            max-width: 950px;
+            margin: 20px auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        h1, h2 {
+            color: #333;
+        }
+
+        ul {
+            list-style-type: disc;
+            padding-left: 10px;
+        }
+        ul {
+            list-style: none; /* Remove default bullet points */
+        }
+
+        h1{
+            text-align: center;
+        }
+
+        hr {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            border: none;
+            border-bottom: 2px solid crimson;
+            width: 100%;
+            display: block; /* Set display to block */
+            margin-left: auto; /* Center horizontally */
+            margin-right: auto;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /* footer */
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            font-size: 14px;
+        }
+        footer p {
+            margin: 5px 0;
+        }
+        footer a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+    </style>
+</head>
+<body>
+<nav class="navbar">
+    <h1>Indore Metro</h1>
+
+    <ul class="nav-links">
+        <li><a href="" th:href="@{/}">Home</a></li>
+        <li><a href="" th:href="@{/aboutUs}">About Us</a></li>
+        <li><a href="" th:href="@{/faq}">FAQ</a></li>
+        <li>
+            <a href="" sec:authorize="isAnonymous()" th:href="@{/login}">Login</a>
+            <span> / </span>
+            <a href="" sec:authorize="isAnonymous()" th:href="@{/registration}">Register</a>
+        </li>
+        <li><a href="" sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout</a></li>
+    </ul>
+</nav>
+<div class="container">
+    <h1>About Us</h1>
+    <hr />
+    <p>
+        Welcome to our transportation project! We are dedicated to
+        revolutionizing the way people travel by providing innovative solutions
+        for commuters worldwide.
+    </p>
+
+    <h2>Our Mission</h2>
+    <p>
+        Our mission is to create a seamless transportation experience for
+        everyone, offering efficient, sustainable, and affordable travel options
+        that enhance connectivity and improve the quality of life.
+    </p>
+
+    <h2>Our Vision</h2>
+    <p>
+        Our vision is to build a future where transportation is not just a means
+        of getting from one place to another, but an integral part of creating
+        vibrant communities, fostering economic growth, and preserving the
+        environment.
+    </p>
+
+    <h2>Our Values</h2>
+    <ul>
+        <li>
+            <strong>Innovation:</strong> We continuously seek new ideas and
+            technologies to improve transportation systems and enhance user
+            experience.
+        </li>
+        <li>
+            <strong>Accessibility:</strong> We believe that transportation should
+            be accessible to all, regardless of geographical location,
+            socioeconomic status, or physical abilities.
+        </li>
+        <li>
+            <strong>Sustainability:</strong> We are committed to promoting
+            sustainable transportation solutions that minimize environmental
+            impact and contribute to a cleaner, greener planet.
+        </li>
+        <li>
+            <strong>Collaboration:</strong> We value collaboration and
+            partnerships with stakeholders, communities, and governments to
+            develop inclusive and integrated transportation networks.
+        </li>
+        <li>
+            <strong>Customer Focus:</strong> We prioritize the needs and
+            preferences of our customers, striving to deliver safe, reliable, and
+            convenient travel options.
+        </li>
+    </ul>
+</div>
+
+<footer>
+    <p>Indore Mero &copy; 2024. All rights reserved.</p>
+    <p>
+        Contact us: <a href="mailto:info@indoremero.com">info@indoremero.com</a>
+    </p>
+    <p>
+        Follow us:
+        <a href="https://www.facebook.com/IndoreMero" target="_blank"
+        >Facebook</a
+        >
+        | <a href="https://twitter.com/IndoreMero" target="_blank">Twitter</a> |
+        <a href="https://www.instagram.com/indoremero/" target="_blank"
+        >Instagram</a
+        >
+    </p>
+    <p>Address: 123 Metro Plaza, Indore, India</p>
+</footer>
+</body>
+</html>

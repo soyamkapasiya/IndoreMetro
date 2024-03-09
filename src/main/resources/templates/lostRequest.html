@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" >
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="lost.css" />
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+
+        /* Navbar */
+        .navbar {
+            background-color: #fff;
+            color: #000;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .navbar h1 {
+            margin: 0;
+        }
+
+        .nav-links {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .nav-links li {
+            margin-right: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #000;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: "";
+            display: block;
+            width: 0;
+            height: 3px;
+            background-color: crimson;
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s ease-in-out;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+            left: 0;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /* Lost */
+
+        .lost-item-form {
+            width: 80%;
+            max-width: 600px;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+            margin: 20px auto;
+        }
+
+        .lost-item-form h2 {
+            margin-top: 0;
+            text-align: center;
+        }
+
+        .lost-item-form .note {
+            font-size: 16px;
+            color: #888;
+            margin-bottom: 20px;
+        }
+
+        .lost-item-form form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .lost-item-form .input-group {
+            margin-bottom: 20px;
+        }
+
+        .lost-item-form label {
+            font-weight: bold;
+        }
+
+        .lost-item-form input[type="text"],
+        .lost-item-form textarea,
+        .lost-item-form input[type="tel"] {
+            font-family: poppins;
+            width: calc(100% - 32px);
+            padding: 12px 16px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            margin-top: 8px;
+        }
+
+
+        .lost-item-form button {
+            padding: 14px 28px;
+            cursor: pointer;
+            margin-top: 20px;
+            align-self: center;
+            font-family: poppins;
+            font-size: 17px;
+            width: 150px;
+            height: 40px;
+            padding: 0;
+            border: none;
+            border-radius: 0;
+            background-color: crimson;
+            color: #fff;
+            cursor: pointer;
+            border: 2px solid crimson;
+            transition: background-color 0.3s ease;
+        }
+
+        .lost-item-form button:hover {
+            background-color: #fff;
+            color: crimson;
+            border: 2px solid crimson;
+        }
+
+        hr{
+            color: crimson;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /* footer */
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            font-size: 14px;
+        }
+        footer p {
+            margin: 5px 0;
+        }
+        footer a {
+            color: #fff;
+            text-decoration: none;
+        }
+    </style>
+    <title>Lost Form</title>
+</head>
+<body>
+<nav class="navbar">
+    <h1>Indore Metro</h1>
+
+    <ul class="nav-links">
+        <li><a href="" th:href="@{/}">Home</a></li>
+        <li><a href="" th:href="@{/aboutUs}">About Us</a></li>
+        <li><a href="" th:href="@{/faq}">FAQ</a></li>
+        <li><a href="" th:href="@{/feedback}">FeedBack</a></li>
+        <li><a href="" sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout</a></li>
+        <li>
+            <a href="" sec:authorize="isAnonymous()" th:href="@{/login}">Login</a>
+            <span sec:authorize="isAnonymous()"> / </span>
+            <a href="" sec:authorize="isAnonymous()" th:href="@{/registration}">Register</a>
+        </li>
+
+    </ul>
+</nav>
+
+<div class="lost-item-form">
+    <h2>Report Lost Item</h2>
+    <hr />
+    <p class="note">Please fill out the form below to report a lost item.</p>
+    <form th:action="@{/addData}" method="post"
+          th:object="${data}">
+        <div class="input-group">
+            <label for="lost-item-name">Item Name:</label>
+
+            <input
+                    type="text" th:field="*{itemName}"
+                    id="lost-item-name"
+                    name="lost-item-name"
+                    placeholder="Enter item name"
+                    required
+            />
+        </div>
+        <div class="input-group">
+            <label for="lost-item-description">Description:</label>
+            <textarea
+                    id="lost-item-description" th:field="*{description}"
+                    name="lost-item-description"
+                    placeholder="Enter item description"
+                    required
+            ></textarea>
+        </div>
+        <div class="input-group">
+            <label for="lost-item-contact">Contact Number:</label>
+            <input
+                    type="tel" th:field="*{phoneNumber}"
+                    id="lost-item-contact"
+                    name="lost-item-contact"
+                    placeholder="Enter contact number"
+                    required
+            />
+        </div>
+        <div class="input-group">
+            <label for="lost-item-location">Location Where Item Was Lost:</label>
+            <input
+                    type="text" th:field="*{location}"
+                    id="lost-item-location"
+                    name="lost-item-location"
+                    placeholder="Enter location"
+                    required
+            />
+        </div>
+        <button type="submit" class="lost-form-btn">Submit</button>
+    </form>
+</div>
+
+<footer>
+    <p>Indore Mero &copy; 2024. All rights reserved.</p>
+    <p>
+        Contact us: <a href="mailto:info@indoremero.com">info@indoremero.com</a>
+    </p>
+    <p>
+        Follow us:
+        <a href="https://www.facebook.com/IndoreMero" target="_blank"
+        >Facebook</a
+        >
+        | <a href="https://twitter.com/IndoreMero" target="_blank">Twitter</a> |
+        <a href="https://www.instagram.com/indoremero/" target="_blank"
+        >Instagram</a
+        >
+    </p>
+    <p>Address: 123 Metro Plaza, Indore, India</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,10 @@
+package com.kapasiya.indoremetro.repository;
+
+
+import com.kapasiya.indoremetro.entity.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface UserRepository extends JpaRepository<User, Integer>
+{
+    User findByEmail(String emailId);
+}

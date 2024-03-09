@@ -1,44 +1,53 @@
 package com.kapasiya.indoremetro.entity;
 
-
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
 
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Table(name = "users")
-public class User {
-
+@Table(name = "user_data")
+public class User
+{
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
 
-    @Column(nullable = false, unique = true)
-    private String username;
+    private String name;
 
-    @Column(nullable = false)
+
+
+    private String email;
+
     private String password;
 
-    @Column(nullable = false)
-    private String fullName;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "users_role", joinColumns = @JoinColumn(name = "cust_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id") )
+    Set<Role> roles = new HashSet<Role>();
 
-    @Column(nullable = false,length = 10)
-    private String pno;
-
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getName() {
+        return name;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -49,30 +58,11 @@ public class User {
         this.password = password;
     }
 
-    public String getFullname() {
-        return fullName;
+    public Set<Role> getRole() {
+        return roles;
     }
 
-    public void setFullname(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public String getPno() {
-        return pno;
-    }
-
-    public void setPno(String pno) {
-        this.pno = pno;
-    }
-
-    public User(String username, String password, String fullName, String pno) {
-        this.username = username;
-        this.password = password;
-        this.fullName = fullName;
-        this.pno = pno;
-    }
-
-    public User() {
+    public void setRole(Role role) {
+        this.roles.add(role);
     }
 }
-

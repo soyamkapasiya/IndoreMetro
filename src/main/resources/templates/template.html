@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Template</title>
+    <style>
+
+        /* Navbar */
+        .navbar {
+            background-color: #fff; /* Changed background color to white */
+            color: #000; /* Changed text color to black */
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Added shadow effect */
+        }
+
+        .navbar h1 {
+            margin: 0;
+        }
+
+        .nav-links {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .nav-links li {
+            margin-right: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #000; /* Changed text color to black */
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: "";
+            display: block;
+            width: 0;
+            height: 3px;
+            background-color: crimson; /* Changed line color to black */
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s ease-in-out;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+            left: 0;
+        }
+
+    </style>
+</head>
+<body>
+<nav class="navbar">
+    <h1>Indore Metro</h1>
+
+    <ul class="nav-links">
+
+<!--        <li><a href="" th:href="@{/myBooking}">My Bookings</a></li>-->
+<!--        <li><a href="" th:href="@{/feedback}">FeedBack</a></li>-->
+<!--        <li><a href="" sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout</a></li>-->
+<!--        <li>-->
+<!--            <a href="" sec:authorize="isAnonymous()" th:href="@{/login}">Login</a>-->
+<!--            <span sec:authorize="isAnonymous()"> / </span>-->
+<!--            <a href="" sec:authorize="isAnonymous()" th:href="@{/registration}">Register</a>-->
+<!--        </li>-->
+
+    </ul>
+</nav>
+<div class="container">
+    <div class="row">
+        <div class= "col-md-6">
+            <label>Date of Departure:</label><div class="textColor"><p th:text ="${date}"/></div>
+        </div>
+        <div class= "col-md-6">
+            <label>Name of Primary Passenger:</label><div class="textColor"><p th:text ="${name}"/></div>
+        </div>
+    </div>
+    <div class = "row">
+        <div class= "col-md-6">
+            <label>Ticket No:</label><div class="textColor"></div>
+        </div>
+        <div class= "col-md-6">
+            <label>No. of Passengers Traveling:</label><div class="textColor"><p th:text ="${noOfPass}"/></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class= "col-md-6">
+            <label>Departure:</label><div class="textColor" ><p th:text ="${From}"/></div>
+        </div>
+        <div class= "col-md-6">
+            <label>Destination:</label><div class="textColor"><p th:text ="${to}"/></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class= "col-md-6">
+            <label>Bus Name:</label><div class="textColor"><p th:text ="${busName}"/></div>
+        </div>
+    </div>
+</div>
+<h4>Note: Along with the ticket bring Primary Passenger's Id Proof.</h4>
+</body>
+</html>

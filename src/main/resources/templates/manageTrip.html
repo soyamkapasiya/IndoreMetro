@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Metro Reservation System</title>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+</head>
+<style>
+    /* Navbar */
+    .navbar {
+        background-color: #fff; /* Changed background color to white */
+        color: #000; /* Changed text color to black */
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Added shadow effect */
+    }
+
+    .navbar h1 {
+        margin: 0;
+    }
+
+    .nav-links {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+    }
+
+    .nav-links li {
+        margin-right: 30px;
+    }
+
+    .nav-links a {
+        text-decoration: none;
+        color: #000; /* Changed text color to black */
+        position: relative;
+    }
+
+    .nav-links a::after {
+        content: "";
+        display: block;
+        width: 0;
+        height: 3px;
+        background-color: crimson; /* Changed line color to black */
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        transition: width 0.3s ease-in-out;
+    }
+
+    .nav-links a:hover::after {
+        width: 100%;
+        left: 0;
+    }
+</style>
+
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <h1>Metro Reservation Admin Dashboard</h1>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3">
+                        <h4> Hi, Welcome <span th:text ="*{userDetails}"></span> </h4></div>
+                    <div class="col-md-3">
+                        <a th:href="@{/admin/allRecords}" class="btn anchor" style="margin-left:500px"> <i class="fa fa-arrow-circle-o-left"></i>&nbsp;All Records</a>
+                    </div>
+                    <div class="col-md-3">
+                        <a th:href="@{/logout}" class="btn anchor" style="margin-left:500px"> <i class="fa fa-arrow-circle-o-left"></i>&nbsp;Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<br><br><br><br><br><br><br>
+<!-- Create HTML registration form -->
+
+
+<div class="container">
+    <div th:if="${param.success}">
+        <div class="alert alert-info">Uploaded Successfully.</div>
+    </div>
+
+
+
+
+    <form th:action="@{/admin/manageTrip}" method="post" th:object="${metroData}">
+
+        <div class= "container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group" style="width: 21%;">
+                        <label for="sourceId">Station Name</label>
+                        <select th:name="destinationId" id="sourceId" th:field="*{fromDestination}" name="sourceId" required>
+                            <option value="default">Select a Station</option>
+                            <option th:each="stations : ${station}"
+                                    th:value="${stations.station_name}"
+                                    th:text="${stations.station_name}"></option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group" style="width: 21%;">
+                        <label for="destinationId">Destination Station Name</label>
+                        <select th:name="destinationId" id="destinationId" th:field="*{toDestination}" name="destinationId" required>
+                            <option value="default">Select a Station</option>
+                            <option th:each="stations : ${station}"
+                                    th:value="${stations.station_name}"
+                                    th:text="${stations.station_name}"></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group" >
+                        <label  class="control-label"  for="filterDate"> Date
+                        </label><input type="date" th:field="*{filterDate}" id="filterDate" required autofocus="autofocus" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group" style="width: 21%;">
+                        <label class="control-label" for="price"> Price
+                        </label> <input id="price" class="form-control"
+                                        th:field="*{price}" required  autofocus="autofocus"
+                    />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group" style="width: 21%;">
+                    <label class="control-label" for="metroName"> Metro Name
+                    </label> <input id="metroName" class="form-control" type="text"
+                                    th:field="*{metroName}" required  autofocus="autofocus"
+                />
+                </div>
+            </div>
+
+
+
+                <div class="col-md-6">
+
+                    <div class="form-group" style="width: 21%;">
+                        <label class="control-label" for="time"> Departure Time
+                        </label> <input id="time" class="form-control" type="time"
+                                        th:field="*{time}" required  autofocus="autofocus"
+                    />
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-danger" style="margin-top:25px;">
+                            Upload </button>
+
+                    </div>
+                </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var container = document.querySelector('.col-md-6');
+
+        container.addEventListener('change', function(event) {
+            var select1 = document.getElementById("sourceId");
+            var select2 = document.getElementById("destinationId");
+
+            if (event.target === select1 || event.target === select2) {
+                removeSelectedOptions(select1, select2);
+            }
+        });
+    });
+
+    function removeSelectedOptions(sourceSelect, targetSelect) {
+        var options = targetSelect.querySelectorAll("option");
+        var selectedValue = sourceSelect.value;
+
+        for (var i = 0; i < options.length; i++) {
+            if (options[i].value === selectedValue) {
+                options[i].disabled = true;
+            } else {
+                options[i].disabled = false;
+            }
+        }
+    }
+</script>
+
+</body>
+
+</html>

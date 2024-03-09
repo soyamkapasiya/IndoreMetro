@@ -1,91 +1,645 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" >
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
-    <link rel="stylesheet" href="login.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <title>Indore Metro</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+
+        /* Navbar */
+        .navbar {
+            background-color: #fff; /* Changed background color to white */
+            color: #000; /* Changed text color to black */
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Added shadow effect */
+        }
+
+        .navbar h1 {
+            margin: 0;
+        }
+
+        .nav-links {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .nav-links li {
+            margin-right: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #000; /* Changed text color to black */
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: "";
+            display: block;
+            width: 0;
+            height: 3px;
+            background-color: crimson; /* Changed line color to black */
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s ease-in-out;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+            left: 0;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /* Cards */
+        .container {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px;
+        }
+        .card {
+            width: calc(25% - 20px);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+            /* border: 2px solid #0e008a; */
+            /* color: #3A0083; */
+        }
+        .card h2 {
+            margin-top: 0;
+            /* color: #3A0083; */
+
+        }
+        .input-group {
+            margin-bottom: 10px;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .input-group input[type="text"] {
+            width: calc(100% - 100px);
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        /* .input-group button {
+            padding: 8px 16px;
+            border-radius: 4px;
+            background-color: #ff0000;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            width: 100px;
+        } */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        .fare-calculator {
+            height: 450px;
+            width: calc(25% - 20px);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+            margin-bottom: 60px; /* Increase bottom margin to accommodate the button and fare */
+            position: relative; /* Add this line */
+        }
+
+        .fare-calculator h2 {
+            margin-top: 0;
+            position: relative;
+        }
+
+
+
+        .fare-calculator .input-group {
+            margin-bottom: 15px;
+        }
+
+        .fare-calculator .input-group label {
+            margin-bottom: 5px; /* Adjust spacing */
+            font-size: 16px;
+        }
+
+        .fare-calculator .input-group input[type="text"] {
+            width: calc(100% - 100px);
+            padding: 10px; /* Adjust padding */
+            font-size: 16px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        .calculate-btn {
+            font-family: poppins;
+            font-size: 17px;
+            width: 150px;
+            height: 40px;
+            padding: 0;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            background-color: crimson;
+            color: #fff;
+            cursor: pointer;
+            border: 2px solid crimson;
+            transition: background-color 0.3s ease;
+        }
+
+        .calculate-btn:hover {
+            background-color: #fff;
+            color: crimson;
+            border: 2px solid crimson;
+        }
+
+        .fare-calculator hr {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            border: none;
+            border-bottom: 1px solid crimson;
+        }
+        #fare {
+            margin-top: 15px; /* Adjust spacing */
+            font-size: 20px;
+            font-weight: bold; /* Adjust font size */
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+        .button-container {
+            display: flex;
+            justify-content: center; /* Center the content horizontally */
+            margin-top: 20px;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        .middle-section {
+            height: 450px;
+            width: calc(30% - 20px); /* Adjust the width as needed */
+            margin: 0 10px; /* Add margin to match the gap between cards */
+        }
+
+
+        /* Style for Station Search Section */
+        .station-search h2,
+        .map-section h2 {
+            margin-top: 0;
+        }
+
+        .station-search hr,
+        .map-section hr {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            border: none;
+            border-bottom: 1px solid crimson;
+        }
+
+        .station-search .input-group {
+            margin-bottom: 10px;
+        }
+
+        .station-search .input-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .station-search .input-group input[type="text"] {
+            width: calc(100% - 100px);
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        .search-btn,
+        .download-btn {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            background-color: #3A0083;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .search-btn:hover,
+        .download-btn:hover {
+            background-color: #5E35B1;
+        }
+
+        /* Style for Map Section */
+        .map-section .map-image {
+            width: 75%; /* Adjust as needed */
+            max-height: 150px; /* Set max-height to control initial image size */
+            transition: transform 0.3s ease; /* Add transition effect for zoom */
+        }
+
+        .map-section .map-image:hover {
+            transform: scale(1.1); /* Zoom in on hover */
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        .notification {
+            height: 450px;
+            margin-top: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adding shadow to the notification box */
+            padding: 20px;
+            position: relative;
+        }
+
+        .notification h2 {
+            margin-top: 0;
+        }
+
+        .notification hr {
+            margin-top: 10px;
+            margin-bottom: 15px;
+            border: none;
+            border-bottom: 1px solid crimson;
+        }
+
+        .notification-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .notification-item img {
+            width: 40px;
+            margin-right: 10px;
+        }
+
+        .notification-date {
+            font-size: 12px;
+            color: #888;
+            /* margin-bottom: 5px; */
+        }
+
+        .note {
+            font-size: 14px;
+            color: #888;
+            margin-top: 10px; /* Adjust margin-top as needed */
+        }
+        .view-all-btn {
+            font-family: poppins;
+            font-size: 17px;
+            width: 150px;
+            height: 40px;
+            padding: 0; /* Padding for square-shaped button */
+            border: none;
+            border-radius: 5px; /* Square shape */
+            background-color: crimson;
+            color: #fff;
+            cursor: pointer;
+            border: 2px solid crimson;
+            transition: background-color 0.3s ease; /* Smooth transition */
+            position: absolute; /* Add this line */
+            bottom: 20px; /* Adjust the distance from the bottom */
+            left: 50%; /* Move to the center horizontally */
+            transform: translateX(-50%); /* Center the button */
+        }
+
+        .view-all-btn:hover {
+            background-color: #fff;
+            color: crimson;
+            border: 2px solid crimson; /* Darker color on hover */
+        }
+
+
+
+
+        .search-btn,
+        .download-btn {
+            font-family: Arial, sans-serif;
+            font-size: 14px; /* Reduced font size */
+            width: 120px; /* Reduced width */
+            height: 30px;
+            padding: 0;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: crimson;
+            color: #fff;
+            cursor: pointer;
+            border: 2px solid crimson;
+            transition: background-color 0.3s ease;
+        }
+
+        .search-btn:hover,
+        .download-btn:hover {
+            background-color: #fff;
+            color: crimson;
+            border: 2px solid crimson;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /* buttons */
+        .button-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .button-container button {
+            font-family: poppins;
+            font-size: 15px;
+            height: 100px;
+            width: 300px;
+            padding: 15px; /* Padding for square-shaped buttons */
+            margin: 10px; /* Margin between buttons */
+            border: none;
+            border-radius: 5px; /* Square shape */
+            background-color: crimson;
+            color: #fff;
+            cursor: pointer;
+            border: 2px solid crimson;
+            transition: background-color 0.3s ease; /* Smooth transition */
+        }
+        .button-container button:hover {
+            background-color: #fff;
+            color: crimson;
+            border: 2px solid crimson;/* Darker color on hover */
+        }
+
+
+
+
+
+        /* footer */
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            font-size: 14px;
+        }
+        footer p {
+            margin: 5px 0;
+        }
+        footer a {
+            color: #fff;
+            text-decoration: none;
+        }
+    </style>
 </head>
 <body>
+<nav class="navbar">
+    <h1>Indore Metro</h1>
 
-    <!-- Navbar -->
-    <div class="navbar">
-        <h1>Indore Metro</h1>
-        <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="#">About Us</a></li>
-            <li><a href="#">FAQ</a></li>
-            <li><a href="index.html">Login</a></li>
-        </ul>
+    <ul class="nav-links">
+        <li><a href="" th:href="@{/}">Home</a></li>
+        <li><a href="" th:href="@{/aboutUs}">About Us</a></li>
+        <li><a href="" th:href="@{/faq}">FAQ</a></li>
+        <li><a href="" th:href="@{/feedback}">FeedBack</a></li>
+        <li>
+            <a href="" sec:authorize="isAnonymous()" th:href="@{/login}">Login</a>
+            <span> / </span>
+            <a href="" sec:authorize="isAnonymous()" th:href="@{/registration}">Register</a>
+        </li>
+        <li><a href="" sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+    <div class="card fare-calculator">
+        <h2>Fare Calculator</h2>
+        <hr />
+        <!-- Horizontal line below the heading -->
+        <div>
+            <form th:action="@{/fare}" method="post" > <!-- th:object=""-->
+                <div class="input-group">
+                    <label for="sourceId">Source:</label>
+                    <select th:name="sourceId" id="sourceId" name="sourceId" required>
+                        <option value="default" >Select a Station</option>
+                        <option th:each="stations : ${station}"
+                                th:value="${stations.station_id}"
+                                th:text="${stations.station_name}"></option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="destinationId">Destination:</label>
+                    <select th:name="destinationId" id="destinationId" name="destinationId" required>
+                        <option value="default">Select a Station</option>
+                        <option th:each="stations : ${station}"
+                                th:value="${stations.station_id}"
+                                th:text="${stations.station_name}"></option>
+                    </select>
+                </div>
+                <button class="calculate-btn">
+                    <input type="submit" hidden="hidden">Calculate Fare</input>
+                </button>
+            </form>
+        </div>
+        <!-- Add class for styling -->
+        <hr />
+        <!-- Horizontal line below the button -->
+        <div id="fare">Fare: ₹ <span th:text="${price}"></span></div>
+        <p class="note">
+            Special fare is applicable on Sunday and national holidays. This is a
+            single journey token fare.
+        </p>
+        <!-- <hr /> -->
     </div>
 
-<!--    <div th:if="${session.message}"-->
-<!--          th:classappend="${session.message}">-->
-<!--        <p th:text="${session.message}">-->
-<!--        </p>-->
-<!--        <th:block th:text="${#session.removeAttribute('message')}"></th:block>-->
+    <div class="card middle-section">
+        <!-- Station Search Section -->
+        <div class="station-search">
+            <h2>Station Search</h2>
+            <hr />
+            <!-- Horizontal line -->
+            <form th:action="@{/stationDetail}" method="post">
+                <div class="input-group">
+                    <label for="stationIdName">Search:</label>
+                    <select th:name="stationIdName" id="stationIdName" name="stationIdName" required>
+                        <option value="default">Select a Station</option>
+                        <option th:each="obj : ${stations}"
+                                th:value="${obj.station_name}"
+                                th:text="${obj.station_name}"></option>
+                    </select>
+                </div>
+                <button class="search-btn">
+                    <input type="submit" hidden="hidden">Search</input>
+                </button>
+            </form>
+        </div>
 
-<!--    </div>-->
-
-
-
-    <!-- Login/Singup -->
-    <div class="login-signup-container">
-        <div class="wrapper">
-            <div class="title-text">
-              <div class="title login">Login Form</div>
-              <div class="title signup">Signup Form</div>
-            </div>
-            <div class="form-container">
-              <div class="slide-controls">
-                <input type="radio" name="slide" id="login" checked>
-                <input type="radio" name="slide" id="signup">
-                <label for="login" class="slide login">Login</label>
-                <label for="signup" class="slide signup">Signup</label>
-                <div class="slider-tab"></div>
-              </div>
-              <div class="form-inner">
-                <form action="#" class="login">
-                  <div class="field">
-                    <input type="text" placeholder="UserName" required>
-                  </div>
-                  <div class="field">
-                    <input type="password" placeholder="Password" required>
-                  </div>
-                  <div class="pass-link"><a href="#">Forgot password?</a></div>
-                  <div class="field btn">
-                    <div class="btn-layer"></div>
-                    <input type="submit" value="Login">
-                  </div>
-                  <div class="signup-link">Not a member? <a href="">Signup now</a></div>
-                </form>
-                <form th:action="@{/register}" th:object="${data}" method="post" class="signup">
-                  <div class="field">
-                    <input type="text" name="email" placeholder="Email Address" required>
-                  </div>
-                  <div class="field">
-                    <input type="text" name="name" placeholder="Full Name" required>
-                  </div>
-                  <div class="field">
-                    <input type="text" name="number" placeholder="Number" required>
-                  </div>
-                  <div class="field">
-                    <input type="password" name="password" placeholder="Password" required>
-                  </div>
-                  <div class="field">
-                    <input type="password" name="confirm" placeholder="Confirm password" required>
-                  </div>
-                  <div class="field btn">
-                    <div class="btn-layer"></div>
-                    <input type="submit" value="Signup">
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
+        <!-- Map Section -->
+        <div class="map-section">
+            <h2>Map</h2>
+            <hr />
+            <!-- Horizontal line -->
+            <img src="/static/Images/map_img.png" alt="Map Image" class="map-image" />
+            <button class="download-btn">Download</button>
+        </div>
     </div>
 
-    <script src="script.js"></script>
+    <div class="card notification">
+        <h2>Notification and Alerts</h2>
+        <hr />
+        <!-- Horizontal line below the heading -->
+        <div class="notification-item" th:each="obj : ${notification}" th:reverse="true">
+            <img src="images/notification_img.png" alt="Notification Icon" />
+            <div class="notification-content">
+                <p class="notification-date" th:text="${obj.getDate()}"></p>
+                <h3 th:text="${obj.getHeading()}"></h3>
+                <p th:text="${obj.getDescription()}">.</p>
+            </div>
+        </div>
 
+        <!-- End of notification items -->
+        <a href="" th:href="@{/notificationPanel}">
+            <button class="view-all-btn">View All</button></a>
+    </div>
+</div>
+
+<div class="button-container">
+    <button>Smart Card</button>
+    <a href="" th:href="@{/dashboard}"><button>Ticket</button></a>
+    <button>Route</button>
+</div>
+<div class="button-container">
+    <a href="" th:href="@{/lostAndFound}"><button>Lost and Found</button></a>
+    <a href="" th:href="@{/tourGuide}"><button>Tour Guide</button></a>
+    <a href="" th:href="@{/help}"><button>Help</button></a>
+</div>
+
+<footer>
+    <p>Indore Mero &copy; 2024. All rights reserved.</p>
+    <p>
+        Contact us: <a href="mailto:info@indoremero.com">info@indoremero.com</a>
+    </p>
+    <p>
+        Follow us:
+        <a href="https://www.facebook.com/IndoreMero" target="_blank"
+        >Facebook</a
+        >
+        | <a href="https://twitter.com/IndoreMero" target="_blank">Twitter</a> |
+        <a href="https://www.instagram.com/indoremero/" target="_blank"
+        >Instagram</a
+        >
+    </p>
+    <p>Address: 123 Metro Plaza, Indore, India</p>
+</footer>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var container = document.querySelector('.fare-calculator');
+
+        container.addEventListener('change', function(event) {
+            var select1 = document.getElementById("sourceId");
+            var select2 = document.getElementById("destinationId");
+
+            if (event.target === select1 || event.target === select2) {
+                removeSelectedOptions(select1, select2);
+            }
+        });
+    });
+
+    function removeSelectedOptions(sourceSelect, targetSelect) {
+        var options = targetSelect.querySelectorAll("option");
+        var selectedValue = sourceSelect.value;
+
+        for (var i = 0; i < options.length; i++) {
+            if (options[i].value === selectedValue) {
+                options[i].disabled = true;
+            } else {
+                options[i].disabled = false;
+            }
+        }
+    }
+</script>
 </body>
 </html>
