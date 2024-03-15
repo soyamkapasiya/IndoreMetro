@@ -3,11 +3,18 @@
 <head>
     <meta charset="ISO-8859-1">
     <title>Bus Reservation System</title>
-    <link rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
 
 </head>
 <style>
+
+    @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Poppins', sans-serif;
+    }
+
     /* Navbar */
     .navbar {
         background-color: #fff; /* Changed background color to white */
@@ -80,127 +87,192 @@
         border: 2px solid crimson;
     }
 
+    select {
+        background-color: crimson;
+        background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20256%20448%22%20enable-background%3D%22new%200%200%20256%20448%22%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E.arrow%7Bfill%3A@{arrow}%3B%7D%3C%2Fstyle%3E%3Cpath%20class%3D%22arrow%22%20d%3D%22M255.9%20168c0-4.2-1.6-7.9-4.8-11.2-3.2-3.2-6.9-4.8-11.2-4.8H16c-4.2%200-7.9%201.6-11.2%204.8S0%20163.8%200%20168c0%204.4%201.6%208.2%204.8%2011.4l112%20112c3.1%203.1%206.8%204.6%2011.2%204.6%204.4%200%208.2-1.5%2011.4-4.6l112-112c3-3.2%204.5-7%204.5-11.4z%22%2F%3E%3C%2Fsvg%3E%0A");
+        background-position: right 10px center;
+        background-repeat: no-repeat;
+        background-size: auto 50%;
+        border-radius: 5px;
+        border: none;
+        color: #ffffff;
+        padding: 10px 30px 10px 10px;
+        margin-top: 10px;
+        outline: none;
+        -moz-appearance: none;
+        -webkit-appearance: none;
+        appearance: none;
+        &::-ms-expand { display: none };
+    }
+
+    .form-container hr{
+        color: #000;
+        margin-top: -20px;
+        width: 200px;
+    }
+
+    .form-container{
+        display: flex;
+        flex-direction: column;
+        width: 300px;
+        gap: 10px;
+        background: white;
+        padding: 40px;
+        box-shadow: 10px 10px 20px;
+        border-radius: 10px;
+        margin-top: 50px;
+        margin-left: 25%;
+    }
+    .table{
+        margin-top: 20px;
+        display: inline-block;
+        margin-left: 25%;
+    }
+
+
+
+    .container{
+        align-items: center;
+
+    }
+
 </style>
 
 <body>
-
-
+<!-- create navigation bar ( header) -->
 <nav class="navbar">
     <h1>Indore Metro</h1>
-
     <ul class="nav-links">
         <li><a href="" th:href="@{/}">Home</a></li>
-        <li><a href="" th:href="@{/myBooking}">My Bookings</a></li>
+        <li><a href="" th:href="@{/aboutUs}">About Us</a></li>
+        <li><a href="" th:href="@{/faq}">FAQ</a></li>
         <li><a href="" th:href="@{/feedback}">FeedBack</a></li>
         <li><a href="" sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout</a></li>
         <li>
             <a href="" sec:authorize="isAnonymous()" th:href="@{/login}">Login</a>
-            <span sec:authorize="isAnonymous()"> / </span>
+            <span sec:authorize="isAnonymous()" > / </span>
             <a href="" sec:authorize="isAnonymous()" th:href="@{/registration}">Register</a>
         </li>
-
     </ul>
 </nav>
 
-<br><br><br><br><br><br><br>
-<!-- Create HTML registration form -->
 <div class="container">
-    <div class="row">
+
+
+    <form th:action="@{/dashboard}" method="post" th:object="${reservation}">
+
+        <div class ="form-container">
+
+            <h3>FIND YOUR TRIP</h3>
+            <hr>
+            <label class="label" for="sourceId"> From </label>
+            <select th:name="destinationId" th:field="*{from}" id="sourceId" required>
+                <option value="default">Select a Station</option>
+                <option th:each="stations : ${station}"
+                        th:value="${stations.station_name}"
+                        th:text="${stations.station_name}">
+                </option>
+            </select>
+
+            <label class="label" for="destinationId"> To </label>
+            <select  th:name="destinationId" th:field="*{to}" id="destinationId" required>
+                <option value="default">Select a Station</option>
+                <option th:each="stations : ${station}"
+                        th:value="${stations.station_name}"
+                        th:text="${stations.station_name}">
+                </option>
+            </select>
+
+            <label  class="label"  for="filterDate"> Date </label>
+            <input type="date" th:field="${reservation.filterDate}" id="filterDate" required autofocus="autofocus" />
 
 
 
-        <form th:action="@{/dashboard}" method="post" th:object="${reservation}">
+
+            <button type="submit" class="calculate-btn" style="margin-top:24px;">Find</button>
+
+        </div>
 
 
-            <div class ="container">
-                <div class="row">
-                    <h3 style="margin-left:400px; color:Red;">FIND YOUR Trip</h3>
-                </div>
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="form-group" style="width: 50%;">
-                            <label class="control-label" for="from">
-                                From </label>
-                            <select th:name="destinationId" th:field="*{from}" id="from" required>
-                                <option value="default">Select a Station</option>
-                                <option th:each="stations : ${station}"
-                                        th:value="${stations.station_name}"
-                                        th:text="${stations.station_name}"></option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group" style="width: 50%;">
-                            <label class="control-label" for="to"> To
-                            </label>
-                            <select th:name="destinationId" th:field="*{to}" id="to" required>
-                                <option value="default">Select a Station</option>
-                                <option th:each="stations : ${station}"
-                                        th:value="${stations.station_name}"
-                                        th:text="${stations.station_name}"></option>
-                            </select>
-                        </div>
-                    </div>
+        <div class="table" th:if= "${busData != null}">
 
-                    <div class="col-md-3">
-                        <div class="form-group" >
-                            <label  class="control-label"  for="filterDate"> Date
-                            </label><input type="date" th:field="${reservation.filterDate}" id="filterDate" required autofocus="autofocus" />
-                        </div>
-                    </div>
+            <table border="1" class = "table table-striped table-responsive-md">
+                <thead>
+                <tr>
+                    <th>
 
-                    <div class="col-md-3">
-                        <button type="submit" class="calculate-btn" style="margin-top:24px;">Find</button>
-                    </div>
-                </div>
-            </div>
+                        From
+                    </th>
+                    <th>
 
-            <div th:if= "${busData != null}">
+                        To
+                    </th>
+                    <th>
 
-                <table border="1" class = "table table-striped table-responsive-md">
-                    <thead>
-                    <tr>
-                        <th>
+                        Time
+                    </th>
+                    <th>
 
-                            From
-                        </th>
-                        <th>
+                        BusName
+                    </th>
+                    <th>
 
-                            To
-                        </th>
-                        <th>
-
-                            Time
-                        </th>
-                        <th>
-
-                            BusName
-                        </th>
-                        <th>
-
-                            Price
-                        </th>
-                        <th> Actions</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="bus : ${busData}">
-                        <td th:text="${bus.fromDestination}"></td>
-                        <td th:text="${bus.toDestination}"></td>
-                        <td th:text="${bus.time}"></td>
-                        <td th:text="${bus.metroName}"></td>
-                        <td th:text="${bus.price}"></td>
-                        <td> <a th:href="@{/dashboard/book/{id}(id=${bus.id})}" class="calculate-btn">Book</a>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-
-
-        </form>
-    </div>
+                        Price
+                    </th>
+                    <th> Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="bus : ${busData}">
+                    <td th:text="${bus.fromDestination}"></td>
+                    <td th:text="${bus.toDestination}"></td>
+                    <td th:text="${bus.time}"></td>
+                    <td th:text="${bus.metroName}"></td>
+                    <td th:text="${bus.price}"></td>
+                    <td> <a th:href="@{/dashboard/book/{id}(id=${bus.id})}" class="calculate-btn">Book</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </form>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function()
+    {
+        var container = document.querySelector('.fare-calculator');
+
+        container.addEventListener('change', function(event)
+        {
+            var select1 = document.getElementById("sourceId");
+            var select2 = document.getElementById("destinationId");
+
+            if (event.target === select1 || event.target === select2)
+            {
+                removeSelectedOptions(select1, select2);
+            }
+        });
+    });
+
+    function removeSelectedOptions(sourceSelect, targetSelect)
+    {
+        var options = targetSelect.querySelectorAll("option");
+        var selectedValue = sourceSelect.value;
+
+        for (var i = 0; i < options.length; i++)
+        {
+            if (options[i].value === selectedValue)
+            {
+                options[i].disabled = true;
+            } else
+            {
+                options[i].disabled = false;
+            }
+        }
+    }
+</script>
+
 
 </body>
 </html>

@@ -1,8 +1,10 @@
 package com.kapasiya.indoremetro.controller;
 
 
+import com.kapasiya.indoremetro.entity.Feedback;
 import com.kapasiya.indoremetro.entity.MetroData;
 import com.kapasiya.indoremetro.entity.User;
+import com.kapasiya.indoremetro.repository.FeedbackRepo;
 import com.kapasiya.indoremetro.repository.MetroDataRepository;
 import com.kapasiya.indoremetro.repository.UserRepository;
 import com.kapasiya.indoremetro.servicedef.StationService;
@@ -31,6 +33,10 @@ public class AdminController {
     StationService stationService;
 
 
+    @Autowired
+    FeedbackRepo feedbackRepo;
+
+
     @ModelAttribute("metroData")
     public MetroData metroData() {
         return new MetroData();
@@ -48,7 +54,7 @@ public class AdminController {
         String user= returnUsername();
         model.addAttribute("station",stationService.getAllStations());
         model.addAttribute("userDetails", user);
-        return "manageTrip";
+        return "adminManageTrip";
     }
 
 
@@ -87,5 +93,42 @@ public class AdminController {
         model.addAttribute("data", data);
         return "redirect:/admin/allRecords?success";
     }
+
+
+    @GetMapping("/admin/feedBack")
+    public String getAllFeedback(Model model){
+        List<Feedback> feedbackList = feedbackRepo.findAll();
+        model.addAttribute("feedbackList", feedbackList);
+        return "adminFeedback";
+    }
+
+
+    @GetMapping("/admin/deleteFeedback/{id}")
+    public String getDataAfterDeleteFeedBack(@PathVariable int id, Model model){
+        feedbackRepo.deleteById(id);
+        List<Feedback> feedbackList = feedbackRepo.findAll();
+        model.addAttribute("feedbackList", feedbackList);
+        return "redirect:/admin/feedBack?success";
+    }
+
+
+    @GetMapping("/admin/users")
+    public String getAllUsers(Model model){
+        List<User> users = userRepository.findAll();
+        model.addAttribute("users", users);
+        return "adminManageUser";
+    }
+
+
+    @GetMapping("/admin/deleteUser/{id}")
+    public String getDataAfterDeleteUser(@PathVariable int id, Model model){
+        userRepository.deleteById(id);
+        List<User> users = userRepository.findAll();
+        model.addAttribute("users", users);
+        return "redirect:/admin/users?success";
+    }
+
+
+
 
 }

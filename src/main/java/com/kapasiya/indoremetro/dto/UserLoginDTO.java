@@ -24,5 +24,11 @@ public class UserLoginDTO {
     }
 
 
-
+    @Override
+    public String toString() {
+        return "UserLoginDTO{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }

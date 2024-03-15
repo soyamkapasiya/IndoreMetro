@@ -2,21 +2,29 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="ISO-8859-1">
-    <title>Bus Reservation System</title>
+    <title>Indore Metro IMC</title>
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
 </head>
 <style>
+    @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Poppins', sans-serif;
+    }
+
+
     /* Navbar */
     .navbar {
-        background-color: #fff; /* Changed background color to white */
-        color: #000; /* Changed text color to black */
+        background-color: #fff;
+        color: #000;
         padding: 10px;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Added shadow effect */
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
 
     .navbar h1 {
@@ -36,7 +44,7 @@
 
     .nav-links a {
         text-decoration: none;
-        color: #000; /* Changed text color to black */
+        color: #000;
         position: relative;
     }
 
@@ -45,7 +53,7 @@
         display: block;
         width: 0;
         height: 3px;
-        background-color: crimson; /* Changed line color to black */
+        background-color: crimson;
         position: absolute;
         bottom: -5px;
         left: 0;
@@ -67,36 +75,113 @@
         width: 200px;
     }
 
+
+    .lost-item-form {
+        width: 80%;
+        max-width: 600px;
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-color: #ffffff;
+        margin: 20px auto;
+    }
+
+    .lost-item-form h2 {
+        margin-top: 0;
+        text-align: center;
+    }
+
+    .lost-item-form .note {
+        font-size: 16px;
+        color: #888;
+        margin-bottom: 20px;
+    }
+
+    .lost-item-form form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .lost-item-form .input-group {
+        margin-bottom: 20px;
+    }
+
+    .lost-item-form label {
+        font-weight: bold;
+    }
+
+    .lost-item-form input[type="text"],
+    .lost-item-form textarea,
+    .lost-item-form input[type="tel"] {
+        font-family: poppins;
+        width: calc(100% - 32px);
+        padding: 12px 16px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        margin-top: 8px;
+    }
+
+
+    .lost-item-form button {
+        padding: 14px 28px;
+        cursor: pointer;
+        margin-top: 20px;
+        align-self: center;
+        font-family: poppins;
+        font-size: 17px;
+        width: 150px;
+        height: 40px;
+        padding: 0;
+        border: none;
+        border-radius: 0;
+        background-color: crimson;
+        color: #fff;
+        cursor: pointer;
+        border: 2px solid crimson;
+        transition: background-color 0.3s ease;
+    }
+
+    .lost-item-form button:hover {
+        background-color: #fff;
+        color: crimson;
+        border: 2px solid crimson;
+    }
+
+    hr{
+        color: crimson;
+    }
+
 </style>
 
 <body>
 
-
+<!-- create navigation bar ( header) -->
 <nav class="navbar">
     <h1>Indore Metro</h1>
-
     <ul class="nav-links">
         <li><a href="" th:href="@{/}">Home</a></li>
         <li><a href="" th:href="@{/aboutUs}">About Us</a></li>
         <li><a href="" th:href="@{/faq}">FAQ</a></li>
         <li><a href="" th:href="@{/feedback}">FeedBack</a></li>
+        <li><a href="" sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout</a></li>
         <li>
             <a href="" sec:authorize="isAnonymous()" th:href="@{/login}">Login</a>
-            <span sec:authorize="isAnonymous()"> / </span>
+            <span sec:authorize="isAnonymous()" > / </span>
             <a href="" sec:authorize="isAnonymous()" th:href="@{/registration}">Register</a>
         </li>
-        <li><a href="" sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout</a></li>
     </ul>
 </nav>
 
-<br><br><br><br><br><br><br>
+
 <!-- Create HTML registration form -->
 
 
-<div class="container">
+<div class="lost-item-form">
     <div  th:if="${param.success}">
-        <div class="alert alert-info">Your Feedback is been recorded.</div>
+        <div class="alert alert-info">Your Feedback has been recorded.</div>
     </div>
+    <h2>Feedback Form</h2>
+    <hr>
     <form th:action="@{/feedback}" method="post"
           th:object="${feedback}">
         <div class="form-group" style="width: 21%;">

@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Feedback</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+
+        /* Navbar */
+        .navbar {
+            background-color: #fff;
+            color: #000;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .navbar h1 {
+            margin: 0;
+        }
+
+        .nav-links {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .nav-links li {
+            margin-right: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #000;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: "";
+            display: block;
+            width: 0;
+            height: 3px;
+            background-color: crimson;
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s ease-in-out;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+            left: 0;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /* Heading */
+
+        h1{
+            text-align: center;
+        }
+
+        hr {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            border: none;
+            border-bottom: 2px solid crimson;
+            width: 80%;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /* Card */
+
+        .instruction-card {
+            max-width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgb(255, 213, 205);
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .instruction {
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .instruction-card-heading{
+            margin: 0;
+            text-align: center;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /* Table */
+
+        .found-items-table {
+            max-width: 80%;
+            margin: 20px auto;
+        }
+
+        .found-items-table h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .found-items-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .found-items-table th,
+        .found-items-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .found-items-table th {
+            background-color: crimson;
+            color: white;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /* Lost form */
+
+        .lost-item-form {
+            text-align: center;
+            width: 50%;
+            margin: 30px auto;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: white;
+        }
+
+        .lost-item-form h2 {
+            margin-top: 0;
+        }
+
+        .lost-item-form .note {
+            color: #888;
+        }
+
+        .lost-item-form button {
+            padding: 14px 28px;
+            cursor: pointer;
+            margin-top: 5px;
+            align-self: center;
+            font-family: poppins;
+            font-size: 17px;
+            width: 150px;
+            height: 40px;
+            padding: 0;
+            border: none;
+            border-radius: 0;
+            background-color: crimson;
+            color: #fff;
+            cursor: pointer;
+            border: 2px solid crimson;
+            transition: background-color 0.3s ease;
+        }
+
+        .lost-item-form button:hover {
+            background-color: #fff;
+            color: crimson;
+            border: 2px solid crimson;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /* footer */
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            font-size: 14px;
+        }
+        footer p {
+            margin: 5px 0;
+        }
+        footer a {
+            color: #fff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- create navigation bar ( header) -->
+    <nav class="navbar">
+        <h1>Indore Metro</h1>
+        <ul class="nav-links">
+            <li><a href="" th:href="@{/}">Home</a></li>
+            <li><a href="" th:href="@{/aboutUs}">Trip</a></li>
+            <li><a href="" th:href="@{/admin/users}">Users</a></li>
+            <li><a href="" th:href="@{/admin/allRecords}">AllRecords</a></li>
+            <li><a href="" th:href="@{/admin/feedBack}">Feedbacks</a></li>
+            <li><a href="" sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout</a></li>
+            <li>
+                <a href="" sec:authorize="isAnonymous()" th:href="@{/login}">Login</a>
+            </li>
+        </ul>
+    </nav>
+
+    <h1>Feedback</h1>
+    <hr />
+    <div class="instruction-card">
+        <h2 class="instruction-card-heading">
+            Instructions for Reporting Lost Items
+        </h2>
+        <p class="instruction">
+            Welcome to the Admin Panel of <strong>Indore Metro</strong> As an administrator, you have access to powerful tools and features to manage and improve our platform. Your role is crucial in ensuring the best possible experience for our users.
+        </p>
+    </div>
+
+    <div class="found-items-table">
+        <h2>Found Items</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Comments</th>
+                <th>Rating</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr th:each="data : ${feedbackList}">
+                    <td th:text="${data.name}"></td>
+                    <td th:text="${data.emailId}"></td>
+                    <td th:text="${data.comments}"></td>
+                    <td th:text="${data.rating}"></td>
+                    <!-- <td> <a th:href="@{/admin/deleteFeedback/{id}(id=${data.id})}" class="calculate-btn">Delete</a></td> -->
+                </tr>    
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

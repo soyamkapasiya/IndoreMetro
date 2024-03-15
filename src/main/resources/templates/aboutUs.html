@@ -155,6 +155,7 @@
     </style>
 </head>
 <body>
+<!-- create navigation bar ( header) -->
 <nav class="navbar">
     <h1>Indore Metro</h1>
 
@@ -162,12 +163,14 @@
         <li><a href="" th:href="@{/}">Home</a></li>
         <li><a href="" th:href="@{/aboutUs}">About Us</a></li>
         <li><a href="" th:href="@{/faq}">FAQ</a></li>
-        <li>
-            <a href="" sec:authorize="isAnonymous()" th:href="@{/login}">Login</a>
-            <span> / </span>
-            <a href="" sec:authorize="isAnonymous()" th:href="@{/registration}">Register</a>
-        </li>
+        <li><a href="" th:href="@{/feedback}">FeedBack</a></li>
         <li><a href="" sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout</a></li>
+        <li>
+            <a href="" sec:authorize="isAnonymous()" th:href="@{/loginRegister}">Login</a>
+            <span sec:authorize="isAnonymous()"> / </span>
+            <a href="" sec:authorize="isAnonymous()" th:href="@{/loginRegister}">Register</a>
+        </li>
+
     </ul>
 </nav>
 <div class="container">
