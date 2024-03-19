@@ -23,8 +23,8 @@ public class SpringSecurityConfig
                 .csrf().disable()
                 .authorizeRequests(authorizeRequests ->
                         authorizeRequests
-                                .requestMatchers("/","/resources/**","/fareCalculated","register","/homePage","/home","/index","/faq","/aboutUs","/help","/fare","/lostAndFound","/stationDetail","/tourGuide","/notificationPanel").permitAll()
-                                .anyRequest().authenticated()
+                                .requestMatchers("/admin","/feedback","/ticket","/dashboard").authenticated()
+                                .anyRequest().permitAll()
                 )
                 .formLogin(formLogin ->
                         formLogin

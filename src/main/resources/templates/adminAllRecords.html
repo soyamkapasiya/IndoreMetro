@@ -2,45 +2,26 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="ISO-8859-1">
-    <title>Admin Screen</title>
-    <link rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
+    <title>Admin</title>
 </head>
 <style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Poppins', sans-serif;
+    }
+
+
     /* Navbar */
     .navbar {
-        background-color: #fff; /* Changed background color to white */
-        color: #000; /* Changed text color to black */
+        background-color: #fff;
+        color: #000;
         padding: 10px;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Added shadow effect */
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
-    .table {
-        max-width: 80%;
-        margin: 20px auto;
-    }
-
-
-    .table table {
-        width: 100%;
-        border-collapse: collapse;
-    }
-
-    .table th,
-    .table td {
-        border: 1px solid #ddd;
-        padding: 8px;
-        text-align: left;
-    }
-
-    .table th {
-        background-color: crimson;
-        color: white;
-    }
-
 
     .navbar h1 {
         margin: 0;
@@ -81,33 +62,76 @@
     }
 
 
-    .calculate-btn {
-        font-family: poppins;
-        font-size: 17px;
-        width: 80px;
-        height: 40px;
-        padding: 0;
-        border: none;
-        border-radius: 5px;
-        margin-top: 10px;
-        margin-bottom: 10px;
-        background-color: crimson;
-        color: #fff;
-        cursor: pointer;
-        border: 2px solid crimson;
-        transition: background-color 0.3s ease;
+    /* popup */
+
+    .popup {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #d9edf7;
+        border-color: #bce8f1;
+        color: #31708f;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        padding: 15px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
     }
 
-    .calculate-btn:hover {
-        background-color: #fff;
-        color: crimson;
-        border: 2px solid crimson;
+    .popup .alert {
+        margin: 0;
+        font-size: 16px;
+    }
+
+
+
+
+
+    /* table  */
+
+    .table {
+        width: 80%;
+        margin: 20px auto;
+        border-collapse: collapse;
+    }
+
+    .table th,
+    .table td {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: left;
+    }
+
+    .table th {
+        background-color: crimson;
+        color: white;
+    }
+
+
+
+
+
+    /* button */
+
+    .btn {
+        display: inline-block;
+        padding: 4px 10px;
+        background-color: #dc3545;
+        color: #fff;
+        text-decoration: none;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .btn:hover {
+        background-color: #c82333;
     }
 
 </style>
 
 <body>
-
+<!-- create navigation bar ( header) -->
 <nav class="navbar">
     <h1>Indore Metro</h1>
     <ul class="nav-links">
@@ -122,11 +146,8 @@
         </li>
     </ul>
 </nav>
-
-
-
 <div class="container">
-    <div th:if="${param.success}">
+    <div th:if="${param.success}" class="popup">
         <div class="alert alert-info">Record deleted successfully.</div>
     </div>
     <div class="row">
@@ -140,14 +161,29 @@
 
                 <div th:if= "${data != null}">
 
-                    <table border="1" class = "table ">
+                    <table border="1" class = "table">
                         <thead>
                         <tr>
-                            <th>From</th>
-                            <th>To</th>
-                            <th>Time</th>
-                            <th>Metro Name</th>
-                            <th>Price</th>
+                            <th>
+
+                                From
+                            </th>
+                            <th>
+
+                                To
+                            </th>
+                            <th>
+
+                                Time
+                            </th>
+                            <th>
+
+                                Metro Name
+                            </th>
+                            <th>
+
+                                Price
+                            </th>
                             <th> Actions</th>
                         </tr>
                         </thead>
@@ -158,7 +194,7 @@
                             <td th:text="${metro.time}"></td>
                             <td th:text="${metro.metroName}"></td>
                             <td th:text="${metro.price}"></td>
-                            <td> <a th:href="@{/admin/delete/{id}(id=${metro.id})}" class="calculate-btn">Delete</a>
+                            <td> <a th:href="@{/admin/delete/{id}(id=${metro.id})}" class="btn">Delete</a>
                             </td>
                         </tr>
                         </tbody>

@@ -1,266 +1,331 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="ISO-8859-1">
-    <title>Indore Metro</title>
-    <style>
-
-        @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        /* Navbar */
-        .navbar {
-            background-color: #fff; /* Changed background color to white */
-            color: #000; /* Changed text color to black */
-            padding: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Added shadow effect */
-        }
-
-        .navbar h1 {
-            margin: 0;
-        }
-
-        .nav-links {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-        }
-
-        .nav-links li {
-            margin-right: 30px;
-        }
-        .table {
-            max-width: 80%;
-            margin: 30px 70px;
-
-        }
-
-
-        .table table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .table th,
-        .table td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-
-        .table th {
-            background-color: crimson;
-            color: white;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: #000; /* Changed text color to black */
-            position: relative;
-        }
-
-        .nav-links a::after {
-            content: "";
-            display: block;
-            width: 0;
-            height: 3px;
-            background-color: crimson; /* Changed line color to black */
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            transition: width 0.3s ease-in-out;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-            left: 0;
-        }
-
-        .calculate-btn {
-            font-family: poppins;
-            font-size: 17px;
-            width: 150px;
-            height: 40px;
-            padding: 0;
-            border: none;
-            border-radius: 5px;
-            margin-top: 10px;
-            margin-bottom: 10px;
-            background-color: crimson;
-            color: #fff;
-            cursor: pointer;
-            border: 2px solid crimson;
-            transition: background-color 0.3s ease;
-        }
-
-        .calculate-btn:hover {
-            background-color: #fff;
-            color: crimson;
-            border: 2px solid crimson;
-        }
-
-        select {
-            background-color: crimson;
-            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20256%20448%22%20enable-background%3D%22new%200%200%20256%20448%22%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E.arrow%7Bfill%3A@{arrow}%3B%7D%3C%2Fstyle%3E%3Cpath%20class%3D%22arrow%22%20d%3D%22M255.9%20168c0-4.2-1.6-7.9-4.8-11.2-3.2-3.2-6.9-4.8-11.2-4.8H16c-4.2%200-7.9%201.6-11.2%204.8S0%20163.8%200%20168c0%204.4%201.6%208.2%204.8%2011.4l112%20112c3.1%203.1%206.8%204.6%2011.2%204.6%204.4%200%208.2-1.5%2011.4-4.6l112-112c3-3.2%204.5-7%204.5-11.4z%22%2F%3E%3C%2Fsvg%3E%0A");
-            background-position: right 10px center;
-            background-repeat: no-repeat;
-            background-size: auto 50%;
-            border-radius: 5px;
-            border: none;
-            color: #ffffff;
-            padding: 10px 30px 10px 10px;
-            margin-top: 10px;
-            outline: none;
-            -moz-appearance: none;
-            -webkit-appearance: none;
-            appearance: none;
-            &::-ms-expand { display: none };
-        }
-
-        .form-container hr{
-            color: #000;
-            margin-top: -20px;
-            width: 200px;
-        }
-
-
-        .form-container{
-            display: flex;
-            flex-direction: column;
-            width: 300px;
-            gap: 10px;
-            background: white;
-            padding: 40px;
-            box-shadow: 1px 1px 10px;
-            border-radius: 10px;
-            margin-top: 50px;
-            margin-left: 25%;
-        }
-
-        .container{
-            align-items: center;
-        }
-        hr{
-            width: 200px;
-            color: #ff3333;
-        }
-
-    </style>
+    <title>Bus Reservation System</title>
 </head>
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    /* Navbar */
+    .navbar {
+        background-color: #fff;
+        /* Changed background color to white */
+        color: #000;
+        /* Changed text color to black */
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        /* Added shadow effect */
+    }
+
+    .navbar h1 {
+        margin: 0;
+    }
+
+    .nav-links {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+    }
+
+    .nav-links li {
+        margin-right: 30px;
+    }
+
+    .nav-links a {
+        text-decoration: none;
+        color: #000;
+        /* Changed text color to black */
+        position: relative;
+    }
+
+    .nav-links a::after {
+        content: "";
+        display: block;
+        width: 0;
+        height: 3px;
+        background-color: crimson;
+        /* Changed line color to black */
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        transition: width 0.3s ease-in-out;
+    }
+
+    .nav-links a:hover::after {
+        width: 100%;
+        left: 0;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    /* booking form */
+    .booking-form {
+        width: 40%;
+        /* max-width: 600px; */
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-color: #ffffff;
+        margin: 20px auto;
+    }
+
+    .booking-form h1 {
+        text-align: center;
+    }
+
+    .booking-form .note {
+        font-size: 16px;
+        color: #888;
+        margin-bottom: 20px;
+    }
+
+    .booking-form form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .booking-form .input-group {
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .booking-form label {
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .booking-form input,
+    .booking-form textarea,
+    select {
+        font-family: poppins;
+        width: calc(100% - 32px);
+        /* width: 100%; */
+        /* Make input fields take full width */
+        padding: 12px 16px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        margin-top: 8px;
+    }
+
+    .booking-form button {
+        padding: 14px 28px;
+        cursor: pointer;
+        margin-top: 20px;
+        align-self: center;
+        font-family: poppins;
+        font-size: 17px;
+        width: 150px;
+        height: 40px;
+        padding: 0;
+        border: none;
+        border-radius: 0;
+        background-color: crimson;
+        color: #fff;
+        cursor: pointer;
+        border: 2px solid crimson;
+        transition: background-color 0.3s ease;
+    }
+
+    .booking-form button:hover {
+        background-color: #fff;
+        color: crimson;
+        border: 2px solid crimson;
+    }
+
+    .booking-form hr {
+        color: crimson;
+    }
+
+
+
+
+
+
+    /* table  */
+
+    .table {
+        width: 80%;
+        margin: 20px auto;
+        border-collapse: collapse;
+    }
+
+    .table th,
+    .table td {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: left;
+    }
+
+    .table th {
+        background-color: crimson;
+        color: white;
+    }
+
+
+
+
+
+    /* button */
+
+    .btn {
+        display: inline-block;
+        padding: 4px 10px;
+        background-color: #dc3545;
+        color: #fff;
+        text-decoration: none;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .btn:hover {
+        background-color: #c82333;
+    }
+</style>
+
 <body>
-<!-- create navigation bar ( header) -->
+
 <nav class="navbar">
     <h1>Indore Metro</h1>
     <ul class="nav-links">
         <li><a href="" th:href="@{/}">Home</a></li>
-        <li><a href="" th:href="@{/myBooking}">My Booking</a></li>
+        <li><a href="" th:href="@{/aboutUs}">About Us</a></li>
+        <li><a href="" th:href="@{/faq}">FAQ</a></li>
         <li><a href="" th:href="@{/feedback}">FeedBack</a></li>
         <li><a href="" sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout</a></li>
         <li>
             <a href="" sec:authorize="isAnonymous()" th:href="@{/login}">Login</a>
-            <span sec:authorize="isAnonymous()" > / </span>
+            <span sec:authorize="isAnonymous()"> / </span>
             <a href="" sec:authorize="isAnonymous()" th:href="@{/registration}">Register</a>
         </li>
     </ul>
 </nav>
 
-<div class="container">
+
+<!-- <div class="container">
+    <div class="row"> -->
+
+<form th:action="@{/dashboard}" method="post" th:object="${reservation}">
+
+    <div class="booking-form">
+
+        <h1>Find Your Trip</h1>
+        <hr>
+        <p class="note">Please fill out the form below to book your ticket.</p>
 
 
-    <form th:action="@{/dashboard}" method="post" th:object="${reservation}">
+        <div>
+            <div>
+                <div class="form-group">
+                    <label class="control-label" for="sourceId"> From </label>
+                    <select th:name="sourceId" th:field="*{from}" id="sourceId" required>
+                        <option value="default">Select a Station</option>
+                        <option th:each="stations : ${station}" th:value="${stations.station_name}"
+                                th:text="${stations.station_name}"></option>
+                    </select>
+                </div>
+            </div>
 
-        <div class ="form-container">
+            <div>
+                <div class="form-group">
+                    <label class="control-label" for="destinationId"> To:-
+                    </label>
+                    <select th:name="destinationId" th:field="*{to}" id="destinationId" required>
+                        <option value="default">Select a Station</option>
+                        <option th:each="stations : ${station}" th:value="${stations.station_name}"
+                                th:text="${stations.station_name}"></option>
+                    </select>
+                </div>
+            </div>
 
-            <h3>FIND YOUR TRIP</h3>
-            <hr>
-            <label class="label" for="sourceId"> From </label>
-            <select th:name="destinationId" th:field="*{from}" id="sourceId" required>
-                <option value="default">Select a Station</option>
-                <option th:each="stations : ${station}"
-                        th:value="${stations.station_name}"
-                        th:text="${stations.station_name}">
-                </option>
-            </select>
+            <div>
+                <div class="form-group">
+                    <label class="control-label" for="filterDate"> Date
+                    </label><input type="date" th:field="${reservation.filterDate}" id="filterDate" required
+                                   autofocus="autofocus" />
+                </div>
+            </div>
 
-            <label class="label" for="destinationId"> To </label>
-            <select  th:name="destinationId" th:field="*{to}" id="destinationId" required>
-                <option value="default">Select a Station</option>
-                <option th:each="stations : ${station}"
-                        th:value="${stations.station_name}"
-                        th:text="${stations.station_name}">
-                </option>
-            </select>
-            <label  class="label"  for="filterDate"> Date </label>
-            <input type="date" th:field="${reservation.filterDate}" id="filterDate" required autofocus="autofocus" />
-            <button type="submit" class="calculate-btn" style="margin-top:24px;">Find</button>
+            <div>
+                <button type="submit" class="calculate-btn">Find</button>
+            </div>
         </div>
+    </div>
 
-        <div class="table" th:if= "${busData != null}">
+    <div th:if="${busData != null}">
 
-            <table border="1" class = "table">
-                <thead>
-                <tr>
-                    <th>From</th>
-                    <th>To</th>
-                    <th>Time</th>
-                    <th>BusName</th>
-                    <th>Price</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="data : ${busData}">
-                    <td th:text="${data.fromDestination}"></td>
-                    <td th:text="${data.toDestination}"></td>
-                    <td th:text="${data.time}"></td>
-                    <td th:text="${data.metroName}"></td>
-                    <td th:text="${data.price}"></td>
-                    <td> <a th:href="@{/dashboard/book/{id}(id=${data.id})}" class="calculate-btn">Book</a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </form>
-</div>
+        <table border="1" class="table">
+            <thead>
+            <tr>
+                <th>From</th>
+                <th>To</th>
+                <th>Time</th>
+                <th>Metro Id</th>
+                <th>Price</th>
+                <th> Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="metro : ${busData}">
+                <td th:text="${metro.fromDestination}"></td>
+                <td th:text="${metro.toDestination}"></td>
+                <td th:text="${metro.time}"></td>
+                <td th:text="${metro.metroName}"></td>
+                <td th:text="${metro.price}"></td>
+                <td> <a th:href="@{/dashboard/book/{id}(id=${metro.id})}" class="btn">Book</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</form>
+<!-- </div>
+</div> -->
 
 <script>
-    document.addEventListener("DOMContentLoaded", function()
-    {
+    document.addEventListener("DOMContentLoaded", function () {
         var container = document.querySelector('.fare-calculator');
 
-        container.addEventListener('change', function(event)
-        {
+        container.addEventListener('change', function (event) {
             var select1 = document.getElementById("sourceId");
             var select2 = document.getElementById("destinationId");
 
-            if (event.target === select1 || event.target === select2)
-            {
+            if (event.target === select1 || event.target === select2) {
                 removeSelectedOptions(select1, select2);
             }
         });
     });
 
-    function removeSelectedOptions(sourceSelect, targetSelect)
-    {
+    function removeSelectedOptions(sourceSelect, targetSelect) {
         var options = targetSelect.querySelectorAll("option");
         var selectedValue = sourceSelect.value;
 
-        for (var i = 0; i < options.length; i++)
-        {
-            if (options[i].value === selectedValue)
-            {
+        for (var i = 0; i < options.length; i++) {
+            if (options[i].value === selectedValue) {
                 options[i].disabled = true;
-            } else
-            {
+            } else {
                 options[i].disabled = false;
             }
         }
@@ -268,5 +333,8 @@
 </script>
 
 
+
+
 </body>
+
 </html>
