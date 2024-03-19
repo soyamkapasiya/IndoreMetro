@@ -2,9 +2,8 @@
 <html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="ISO-8859-1">
-    <title>Metro Reservation System</title>
-    <link rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <title>Indore Metro</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
@@ -106,8 +105,7 @@
     <h1>Indore Metro</h1>
     <ul class="nav-links">
         <li><a href="" th:href="@{/}">Home</a></li>
-        <li><a href="" th:href="@{/aboutUs}">About Us</a></li>
-        <li><a href="" th:href="@{/faq}">FAQ</a></li>
+        <li><a href="" th:href="@{/myBooking}">My Booking</a></li>
         <li><a href="" th:href="@{/feedback}">FeedBack</a></li>
         <li><a href="" sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout</a></li>
         <li>
@@ -118,12 +116,10 @@
     </ul>
 </nav>
 
-<br><br><br><br><br><br><br>
+
 <!-- Create HTML registration form -->
 <div class="container">
     <div class="row">
-
-
         <!-- success message -->
         <div th:if="${param.success}">
             <div class="alert alert-info">Your Bookings Done ,go to My Bookings section to check you booking , by going on Dashboard.</div>

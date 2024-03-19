@@ -520,7 +520,6 @@
         </li>
     </ul>
 </nav>
-
 <div class="container">
     <div class="card fare-calculator">
         <h2>Fare Calculator</h2>
@@ -532,7 +531,7 @@
                     <label for="sourceId">Source:</label>
                     <br>
                     <select th:name="sourceId" id="sourceId" name="sourceId" required>
-                        <option value="default" >Select a Station</option>
+                        <option value="default" id="sourceDefault">Select a Station</option>
                         <option th:each="stations : ${station}"
                                 th:value="${stations.station_id}"
                                 th:text="${stations.station_name}"></option>
@@ -541,14 +540,14 @@
                 <div class="input-group">
                     <label for="destinationId">Destination:</label>
                     <select th:name="destinationId" id="destinationId" name="destinationId" required>
-                        <option value="default">Select a Station</option>
+                        <option value="default" id="destinationDefault">Select a Station</option>
                         <option th:each="stations : ${station}"
                                 th:value="${stations.station_id}"
                                 th:text="${stations.station_name}"></option>
                     </select>
                 </div>
                 <button class="calculate-btn">
-                    <input type="submit" hidden="hidden">Calculate Fare</input>
+                    <input onclick="defaultSetter()" type="submit" hidden="hidden">Calculate Fare</input>
                 </button>
             </form>
         </div>
@@ -648,6 +647,15 @@
 </footer>
 
 <script>
+
+    const defaultSetter = () => {
+         var sourceDefault =document.getElementById("sourceId");
+        var destinationDefault =document.getElementById("destinationId");
+
+         document.getElementById("sourceDefault").value = sourceDefault;
+         document.getElementById("destinationDefault").value = destinationDefault;
+    }
+
     document.addEventListener("DOMContentLoaded", function() {
         var container = document.querySelector('.fare-calculator');
 

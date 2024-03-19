@@ -82,7 +82,7 @@ public class AdminController {
         String user= returnUsername();
         model.addAttribute("userDetails", user);
         model.addAttribute("data", data);
-        return "allRecords";
+        return "adminAllRecords";
     }
     @GetMapping("/admin/delete/{id}")
     public String getDataAfterDelete(@PathVariable int id, Model model){
