@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Admin Screen</title>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+</head>
+<style>
+    /* Navbar */
+    .navbar {
+        background-color: #fff; /* Changed background color to white */
+        color: #000; /* Changed text color to black */
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Added shadow effect */
+    }
+
+    .navbar h1 {
+        margin: 0;
+    }
+
+    .nav-links {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+    }
+
+    .nav-links li {
+        margin-right: 30px;
+    }
+
+    .nav-links a {
+        text-decoration: none;
+        color: #000; /* Changed text color to black */
+        position: relative;
+    }
+
+    .nav-links a::after {
+        content: "";
+        display: block;
+        width: 0;
+        height: 3px;
+        background-color: crimson; /* Changed line color to black */
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        transition: width 0.3s ease-in-out;
+    }
+
+    .nav-links a:hover::after {
+        width: 100%;
+        left: 0;
+    }
+    @-moz-document url-prefix() {
+        select {
+            color: rgba(0,0,0,0);
+            text-shadow: 0 0 0 #ffffff;
+        }
+    }
+
+
+
+    select {
+        background-color: crimson;
+        background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20256%20448%22%20enable-background%3D%22new%200%200%20256%20448%22%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E.arrow%7Bfill%3A@{arrow}%3B%7D%3C%2Fstyle%3E%3Cpath%20class%3D%22arrow%22%20d%3D%22M255.9%20168c0-4.2-1.6-7.9-4.8-11.2-3.2-3.2-6.9-4.8-11.2-4.8H16c-4.2%200-7.9%201.6-11.2%204.8S0%20163.8%200%20168c0%204.4%201.6%208.2%204.8%2011.4l112%20112c3.1%203.1%206.8%204.6%2011.2%204.6%204.4%200%208.2-1.5%2011.4-4.6l112-112c3-3.2%204.5-7%204.5-11.4z%22%2F%3E%3C%2Fsvg%3E%0A");
+        background-position: right 10px center;
+        background-repeat: no-repeat;
+        background-size: auto 50%;
+        border-radius: 5px;
+        border: none;
+        color: #ffffff;
+        padding: 10px 30px 10px 10px;
+
+    // disable default appearance
+    outline: none;
+        -moz-appearance: none;
+        -webkit-appearance: none;
+        appearance: none;
+        &::-ms-expand { display: none };
+    }
+</style>
+
+<body>
+
+<nav class="navbar">
+    <h1>Indore Metro</h1>
+    <ul class="nav-links">
+        <li><a href="" th:href="@{/}">Home</a></li>
+        <li><a href="" th:href="@{/aboutUs}">Trip</a></li>
+        <li><a href="" th:href="@{/admin/users}">Users</a></li>
+        <li><a href="" th:href="@{/admin/allRecords}">AllRecords</a></li>
+        <li><a href="" th:href="@{/admin/feedBack}">Feedbacks</a></li>
+        <li><a href="" sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout</a></li>
+        <li>
+            <a href="" sec:authorize="isAnonymous()" th:href="@{/login}">Login</a>
+        </li>
+    </ul>
+</nav>
+
+<div class="container">
+    <div th:if="${param.success}">
+        <div class="alert alert-info">Uploaded Successfully.</div>
+    </div>
+
+    <form th:action="@{/admin/manageTrip}" method="post" th:object="${metroData}">
+
+        <div class= "container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group" style="width: 21%;">
+                        <label for="sourceId">Station Name</label>
+                        <select th:name="destinationId" id="sourceId" th:field="*{fromDestination}" name="sourceId" required>
+                            <option value="default">Select a Station</option>
+                            <option th:each="stations : ${station}"
+                                    th:value="${stations.station_name}"
+                                    th:text="${stations.station_name}"></option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group" style="width: 21%;">
+                        <label for="destinationId">Destination Station Name</label>
+                        <select th:name="destinationId" id="destinationId" th:field="*{toDestination}" name="destinationId" required>
+                            <option value="default">Select a Station</option>
+                            <option th:each="stations : ${station}"
+                                    th:value="${stations.station_name}"
+                                    th:text="${stations.station_name}"></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group" >
+                        <label  class="control-label"  for="filterDate"> Date
+                        </label><input type="date" th:field="*{filterDate}" id="filterDate" required autofocus="autofocus" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group" style="width: 21%;">
+                        <label class="control-label" for="price"> Price
+                        </label> <input id="price" class="form-control"
+                                        th:field="*{price}" required  autofocus="autofocus"
+                    />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group" style="width: 21%;">
+                    <label class="control-label" for="metroName"> Metro Name
+                    </label> <input id="metroName" class="form-control" type="text"
+                                    th:field="*{metroName}" required  autofocus="autofocus"
+                />
+                </div>
+            </div>
+
+
+
+            <div class="col-md-6">
+
+                <div class="form-group" style="width: 21%;">
+                    <label class="control-label" for="time"> Departure Time
+                    </label> <input id="time" class="form-control" type="time"
+                                    th:field="*{time}" required  autofocus="autofocus"
+                />
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-danger" style="margin-top:25px;">
+                        Upload </button>
+
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var container = document.querySelector('.col-md-6');
+
+        container.addEventListener('change', function(event) {
+            var select1 = document.getElementById("sourceId");
+            var select2 = document.getElementById("destinationId");
+
+            if (event.target === select1 || event.target === select2) {
+                removeSelectedOptions(select1, select2);
+            }
+        });
+    });
+
+    function removeSelectedOptions(sourceSelect, targetSelect) {
+        var options = targetSelect.querySelectorAll("option");
+        var selectedValue = sourceSelect.value;
+
+        for (var i = 0; i < options.length; i++) {
+            if (options[i].value === selectedValue) {
+                options[i].disabled = true;
+            } else {
+                options[i].disabled = false;
+            }
+        }
+    }
+</script>
+
+</body>
+
+</html>

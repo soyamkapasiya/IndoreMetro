@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" >
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Indore Metro</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+
+        /* Navbar */
+        .navbar {
+            background-color: #fff;
+            color: #000;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .navbar h1 {
+            margin: 0;
+        }
+
+        .nav-links {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .nav-links li {
+            margin-right: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #000;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: "";
+            display: block;
+            width: 0;
+            height: 3px;
+            background-color: crimson;
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s ease-in-out;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+            left: 0;
+        }
+
+
+
+        .banner {
+            display: flex;
+            margin: auto;
+            width: 90%;
+            height: 600px;
+            background-image: url("/static/Images");
+            background-size: cover;
+            background-position: center;
+        }
+        h2 {
+            text-align: center;
+            margin: 20px;
+        }
+
+        hr {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            border: none;
+            border-bottom: 2px solid crimson;
+            width: 90%;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+
+
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px; /* Adjust the gap between cards */
+            margin: 20px; /* Add margin around the card container */
+        }
+
+        .card {
+            width: 300px; /* Adjust width as needed */
+            height: auto; /* Adjust height as needed */
+            margin: 20px; /* Add margin to create space between cards */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+            transition: transform 0.3s ease;
+        }
+        .card img {
+            width: 100%;
+            height: 200px; /* Set a fixed height for all images */
+            object-fit: cover;  /* Maintain aspect ratio */
+            border-radius: 8px;
+        }
+
+        .card-content {
+            padding: 10px;
+        }
+
+        .card-content h3 {
+            margin-top: 0;
+        }
+
+        .card-content p {
+            margin-bottom: 0;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            transform: scale(1.05);
+        }
+
+
+        /* footer */
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            font-size: 14px;
+        }
+        footer p {
+            margin: 5px 0;
+        }
+        footer a {
+            color: #fff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar">
+    <h1>Indore Metro</h1>
+    <ul class="nav-links">
+        <li><a href="" th:href="@{/}">Home</a></li>
+        <li><a href="" th:href="@{/aboutUs}">About Us</a></li>
+        <li><a href="" th:href="@{/faq}">FAQ</a></li>
+        <li><a href="" th:href="@{/feedback}">FeedBack</a></li>
+        <li><a href="" sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout</a></li>
+        <li>
+            <a href="" sec:authorize="isAnonymous()" th:href="@{/login}">Login</a>
+            <span sec:authorize="isAnonymous()" > / </span>
+            <a href="" sec:authorize="isAnonymous()" th:href="@{/registration}">Register</a>
+        </li>
+    </ul>
+</nav>
+
+<h2>Tour Guide</h2>
+<hr />
+
+<img class="banner" src="images/indore.jpg" alt="" />
+
+<h2>Places to visit in Indore</h2>
+<hr />
+
+<div class="card-container">
+    <div class="card">
+        <img src="images/Mahatma Gandhi Hall.jpg" alt="Gandhi Hall" />
+        <div class="card-content">
+            <h3>Gandhi Hall</h3>
+            <p>
+                Near the historic Gandhi Hall, a landmark known for its
+                architectural grandeur and cultural significance
+            </p>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="images/rajwada 2.jpg" alt="Rajwada" />
+        <div class="card-content">
+            <h3>Rajwada</h3>
+            <p>
+                Close to Rajwada, a magnificent palace reflecting the rich history
+                and architectural heritage of Indore.
+            </p>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="images/Lal Bagh Palace.jpg" alt="Lal Bagh" />
+        <div class="card-content">
+            <h3>Lal Bagh</h3>
+            <p>
+                Adjacent to Lal Bagh Palace, a stunning royal residence showcasing a
+                blend of European and Indian architectural styles.
+            </p>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="images/Annapurna.jpg" alt="Annapurna" />
+        <div class="card-content">
+            <h3>Annapurna</h3>
+            <p>
+                Near the revered Annapurna Temple, a spiritual hub dedicated to the
+                Hindu goddess of nourishment and abundance
+            </p>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="images/Choki dhani.jpg" alt="Chokhi Dhani" />
+        <div class="card-content">
+            <h3>Chokhi Dhani</h3>
+            <p>
+                Conveniently located for access to Chokhi Dhani, an ethnic village
+                resort offering traditional Rajasthani culture, cuisine, and
+                entertainment.
+            </p>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="images/Khajrana.jpg" alt="Khajrana" />
+        <div class="card-content">
+            <h3>Khajrana</h3>
+            <p>
+                Close to Khajrana Ganesh Temple, a popular Hindu temple dedicated to
+                Lord Ganesha, attracting devotees and tourists alike.
+            </p>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="images/meghdoot-garden.webp" alt="Meghdoot Garden" />
+        <div class="card-content">
+            <h3>Meghdoot Garden</h3>
+            <p>
+                Adjacent to Meghdoot Garden, a picturesque botanical garden
+                featuring lush greenery, colorful flowers, and serene water bodies.
+            </p>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="images/patal pani.jpg" alt="Patalpan" />
+        <div class="card-content">
+            <h3>Patalpan</h3>
+            <p>
+                Near Patalpani Waterfall, a scenic natural attraction known for its
+                cascading waters and picturesque surroundings
+            </p>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="images/ralamandal.jpg" alt="Ralamandal" />
+        <div class="card-content">
+            <h3>Ralamandal</h3>
+            <p>
+                Conveniently located for access to Ralamandal Wildlife Sanctuary, a
+                nature reserve offering diverse flora and fauna in a serene
+                environment.
+            </p>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="images/tincha fall.jpg" alt="Tincha Falls" />
+        <div class="card-content">
+            <h3>Tincha Falls</h3>
+            <p>
+                Close to Tincha Falls, a mesmerizing waterfall nestled amidst lush
+                greenery, offering a refreshing escape into nature.
+            </p>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="images/Untitled.jpg" alt="Indore Zoo" />
+        <div class="card-content">
+            <h3>Indore Zoo</h3>
+            <p>
+                Adjacent to Indore Zoo, a popular destination housing a variety of
+                wildlife species, providing educational and recreational experiences
+                for visitors
+            </p>
+        </div>
+    </div>
+
+    <!-- Repeat the above card markup two more times to create three cards in a row -->
+</div>
+
+<footer>
+    <p>Indore Mero &copy; 2024. All rights reserved.</p>
+    <p>
+        Contact us: <a href="mailto:info@indoremero.com">info@indoremero.com</a>
+    </p>
+    <p>
+        Follow us:
+        <a href="https://www.facebook.com/IndoreMero" target="_blank"
+        >Facebook</a
+        >
+        | <a href="https://twitter.com/IndoreMero" target="_blank">Twitter</a> |
+        <a href="https://www.instagram.com/indoremero/" target="_blank"
+        >Instagram</a
+        >
+    </p>
+    <p>Address: 123 Metro Plaza, Indore, India</p>
+</footer>
+</body>
+</html>

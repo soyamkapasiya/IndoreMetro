@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" >
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Indore Metro</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+
+        /* Navbar */
+        .navbar {
+            background-color: #fff; /* Changed background color to white */
+            color: #000; /* Changed text color to black */
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Added shadow effect */
+        }
+
+        .navbar h1 {
+            margin: 0;
+        }
+
+        .nav-links {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .nav-links li {
+            margin-right: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #000; /* Changed text color to black */
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: "";
+            display: block;
+            width: 0;
+            height: 3px;
+            background-color: crimson; /* Changed line color to black */
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s ease-in-out;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+            left: 0;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        .notification {
+            height: 450px;
+            margin-top: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adding shadow to the notification box */
+            padding: 20px;
+            position: relative;
+        }
+
+        h2 {
+            text-align: center;
+            margin: 20px;
+        }
+
+        hr {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            border: none;
+            border-bottom: 2px solid crimson;
+            width: 90%;
+            display: block; /* Set display to block */
+            margin-left: auto; /* Center horizontally */
+            margin-right: auto;
+        }
+
+        .notification-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            width: 90%;
+            margin-left: auto; /* Center horizontally */
+            margin-right: auto;
+        }
+
+        .notification-item img {
+            width: 40px;
+            margin-right: 10px;
+        }
+
+        .notification-date {
+            font-size: 12px;
+            color: #888;
+            /* margin-bottom: 5px; */
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /* footer */
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            font-size: 14px;
+        }
+        footer p {
+            margin: 5px 0;
+        }
+        footer a {
+            color: #fff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<!-- create navigation bar ( header) -->
+<nav class="navbar">
+    <h1>Indore Metro</h1>
+    <ul class="nav-links">
+        <li><a href="" th:href="@{/}">Home</a></li>
+        <li><a href="" th:href="@{/aboutUs}">About Us</a></li>
+        <li><a href="" th:href="@{/faq}">FAQ</a></li>
+        <li><a href="" th:href="@{/feedback}">FeedBack</a></li>
+        <li><a href="" sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout</a></li>
+        <li>
+            <a href="" sec:authorize="isAnonymous()" th:href="@{/login}">Login</a>
+            <span sec:authorize="isAnonymous()" > / </span>
+            <a href="" sec:authorize="isAnonymous()" th:href="@{/registration}">Register</a>
+        </li>
+    </ul>
+</nav>
+
+
+<h2>Notification and Alerts</h2>
+<hr />
+<!-- Horizontal line below the heading -->
+<div class="notification-item" th:reverse="true" th:each="obj : ${notification}">
+    <img src="images/notification_img.png" alt="Notification Icon" />
+    <div class="notification-content">
+        <p class="notification-date" th:text="${obj.getDate()}"></p>
+        <h3 th:text="${obj.getHeading()}"></h3>
+        <p th:text="${obj.getDescription()}">.</p>
+    </div>
+</div>
+</body>
+<footer>
+    <p>Indore Mero &copy; 2024. All rights reserved.</p>
+    <p>
+        Contact us: <a href="mailto:info@indoremero.com">info@indoremero.com</a>
+    </p>
+    <p>
+        Follow us:
+        <a href="https://www.facebook.com/IndoreMero" target="_blank"
+        >Facebook</a
+        >
+        | <a href="https://twitter.com/IndoreMero" target="_blank">Twitter</a> |
+        <a href="https://www.instagram.com/indoremero/" target="_blank"
+        >Instagram</a
+        >
+    </p>
+    <p>Address: 123 Metro Plaza, Indore, India</p>
+</footer>
+
+</html>

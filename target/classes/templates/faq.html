@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" >
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="faq.css" />
+    <title>Indore Metro</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap");
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+        html,
+        body {
+            height: 100%;
+            width: 100%;
+            place-items: center;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: #fff; /* Changed background color to white */
+            color: #000; /* Changed text color to black */
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Added shadow effect */
+        }
+
+        .navbar h1 {
+            margin: 0;
+        }
+
+        .nav-links {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .nav-links li {
+            margin-right: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #000; /* Changed text color to black */
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: "";
+            display: block;
+            width: 0;
+            height: 3px;
+            background-color: crimson; /* Changed line color to black */
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s ease-in-out;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+            left: 0;
+        }
+
+        hr {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            border: none;
+            border-bottom: 2px solid crimson;
+            width: 90%;
+            display: block; /* Set display to block */
+            margin-left: auto; /* Center horizontally */
+            margin-right: auto;
+        }
+
+        .faq-heading {
+            text-align: center;
+            margin: 20px;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+        }
+        .accordion {
+            background-color: #f9f9f9;
+            color: #333;
+            cursor: pointer;
+            padding: 18px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 16px;
+            transition: background-color 0.4s ease;
+            border-bottom: 1px solid #ddd;
+        }
+        .accordion:hover {
+            background-color: #ddd;
+        }
+        .panel {
+            padding: 0 18px;
+            background-color: white;
+            overflow: hidden;
+            border-bottom: 1px solid #ddd;
+            max-height: 0;
+            transition: max-height 0.3s ease;
+        }
+        .panel-content {
+            padding: 15px 0; /* Adjust spacing as needed */
+        }
+        .accordion.active + .panel {
+            max-height: 500px; /* Adjust the max-height as needed */
+        }
+
+        /* footer */
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            font-size: 14px;
+        }
+        footer p {
+            margin: 5px 0;
+        }
+        footer a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+    </style>
+</head>
+<body>
+<!-- create navigation bar ( header) -->
+<nav class="navbar">
+    <h1>Indore Metro</h1>
+    <ul class="nav-links">
+        <li><a href="" th:href="@{/}">Home</a></li>
+        <li><a href="" th:href="@{/aboutUs}">About Us</a></li>
+        <li><a href="" th:href="@{/faq}">FAQ</a></li>
+        <li><a href="" th:href="@{/feedback}">FeedBack</a></li>
+        <li><a href="" sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout</a></li>
+        <li>
+            <a href="" sec:authorize="isAnonymous()" th:href="@{/login}">Login</a>
+            <span sec:authorize="isAnonymous()" > / </span>
+            <a href="" sec:authorize="isAnonymous()" th:href="@{/registration}">Register</a>
+        </li>
+    </ul>
+</nav>
+
+<h1 class="faq-heading">Frequently Asked Questions</h1>
+<hr />
+
+<div class="container">
+    <button class="accordion">1. What is the Indore Metro?</button>
+    <div class="panel">
+        <div class="panel-content">
+            <p>
+                <strong>Ans:</strong>
+                The Indore Metro is a rapid transit system serving the city of
+                Indore, India. It aims to provide a convenient and efficient mode of
+                public transportation for residents and visitors.
+            </p>
+        </div>
+    </div>
+
+    <button class="accordion">
+        2. How can I purchase tickets for the Indore Metro?
+    </button>
+    <div class="panel">
+        <div class="panel-content">
+            <p>
+                <strong>Ans:</strong>
+                You can purchase tickets for the Indore Metro at ticket counters
+                located at metro stations. Additionally, automated ticket vending
+                machines are available at some stations for self-service ticket
+                purchase.
+            </p>
+        </div>
+    </div>
+
+    <button class="accordion">
+        3. What are the operating hours of the Indore Metro?
+    </button>
+    <div class="panel">
+        <div class="panel-content">
+            <p>
+                <strong>Ans:</strong>
+                The Indore Metro operates from early morning until late at night,
+                typically from 6:00 AM to 11:00 PM. However, please note that the
+                operating hours may vary on holidays and special occasions.
+            </p>
+        </div>
+    </div>
+
+    <button class="accordion">
+        4. Are there any discounts available for senior citizens and students?
+    </button>
+    <div class="panel">
+        <div class="panel-content">
+            <p>
+                <strong>Ans:</strong>
+                Yes, senior citizens and students are eligible for discounted fares
+                on the Indore Metro. They may need to provide valid identification
+                or student cards to avail of these discounts.
+            </p>
+        </div>
+    </div>
+
+    <button class="accordion">
+        5. Can I bring luggage or pets on the Indore Metro?
+    </button>
+    <div class="panel">
+        <div class="panel-content">
+            <p>
+                <strong>Ans:</strong>
+                Luggage is allowed on the Indore Metro, but passengers are
+                encouraged to keep their belongings to a minimum to ensure a
+                comfortable journey for everyone. Pets are generally not allowed on
+                the metro, except for service animals accompanying passengers with
+                disabilities.
+            </p>
+        </div>
+    </div>
+
+    <button class="accordion">
+        6. How often do trains run on the Indore Metro?
+    </button>
+    <div class="panel">
+        <div class="panel-content">
+            <p>
+                <strong>Ans:</strong>
+                Trains on the Indore Metro run at regular intervals throughout the
+                day, with higher frequencies during peak hours and reduced
+                frequencies during off-peak hours. The exact schedule may vary
+                depending on the day of the week and other factors.
+            </p>
+        </div>
+    </div>
+
+    <button class="accordion">
+        7. Are there any facilities for passengers with disabilities?
+    </button>
+    <div class="panel">
+        <div class="panel-content">
+            <p>
+                <strong>Ans:</strong>
+                Yes, the Indore Metro is designed to be accessible to passengers
+                with disabilities. Stations are equipped with elevators, ramps, and
+                designated spaces for wheelchair users. Additionally, staff members
+                are trained to assist passengers with special needs.
+            </p>
+        </div>
+    </div>
+
+    <button class="accordion">
+        8. What should I do if I lose an item on the Indore Metro?
+    </button>
+    <div class="panel">
+        <div class="panel-content">
+            <p>
+                <strong>Ans:</strong>
+                If you lose an item on the Indore Metro, you can contact the Lost
+                and Found department at the nearest metro station. They will assist
+                you in locating and retrieving your lost item, if possible.
+            </p>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>Indore Mero &copy; 2024. All rights reserved.</p>
+    <p>
+        Contact us: <a href="mailto:info@indoremero.com">info@indoremero.com</a>
+    </p>
+    <p>
+        Follow us:
+        <a href="https://www.facebook.com/IndoreMero" target="_blank"
+        >Facebook</a
+        >
+        | <a href="https://twitter.com/IndoreMero" target="_blank">Twitter</a> |
+        <a href="https://www.instagram.com/indoremero/" target="_blank"
+        >Instagram</a
+        >
+    </p>
+    <p>Address: 123 Metro Plaza, Indore, India</p>
+</footer>
+
+<script>
+    var acc = document.querySelectorAll(".accordion");
+
+    acc.forEach(function (item) {
+        item.addEventListener("click", function () {
+            this.classList.toggle("active");
+            var panel = this.nextElementSibling;
+            if (panel.style.maxHeight) {
+                panel.style.maxHeight = null;
+            } else {
+                panel.style.maxHeight = panel.scrollHeight + "px";
+            }
+        });
+    });
+</script>
+</body>
+</html>

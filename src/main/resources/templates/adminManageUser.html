@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Admin Screen</title>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+</head>
+<style>
+    /* Navbar */
+    .navbar {
+        background-color: #fff; /* Changed background color to white */
+        color: #000; /* Changed text color to black */
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Added shadow effect */
+    }
+    .table {
+        max-width: 80%;
+        margin: 20px auto;
+    }
+
+
+    .table table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .table th,
+    .table td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    .table th {
+        background-color: crimson;
+        color: white;
+    }
+
+
+    .navbar h1 {
+        margin: 0;
+    }
+
+    .nav-links {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+    }
+
+    .nav-links li {
+        margin-right: 30px;
+    }
+
+    .nav-links a {
+        text-decoration: none;
+        color: #000; /* Changed text color to black */
+        position: relative;
+    }
+
+    .nav-links a::after {
+        content: "";
+        display: block;
+        width: 0;
+        height: 3px;
+        background-color: crimson; /* Changed line color to black */
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        transition: width 0.3s ease-in-out;
+    }
+
+    .nav-links a:hover::after {
+        width: 100%;
+        left: 0;
+    }
+
+
+    .calculate-btn {
+        font-family: poppins;
+        font-size: 17px;
+        width: 80px;
+        height: 40px;
+        padding: 0;
+        border: none;
+        border-radius: 5px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        background-color: crimson;
+        color: #fff;
+        cursor: pointer;
+        border: 2px solid crimson;
+        transition: background-color 0.3s ease;
+    }
+
+    .calculate-btn:hover {
+        background-color: #fff;
+        color: crimson;
+        border: 2px solid crimson;
+    }
+
+</style>
+
+<body>
+
+<nav class="navbar">
+    <h1>Indore Metro</h1>
+    <ul class="nav-links">
+        <li><a href="" th:href="@{/}">Home</a></li>
+        <li><a href="" th:href="@{/aboutUs}">Trip</a></li>
+        <li><a href="" th:href="@{/admin/users}">Users</a></li>
+        <li><a href="" th:href="@{/admin/allRecords}">AllRecords</a></li>
+        <li><a href="" th:href="@{/admin/feedBack}">Feedbacks</a></li>
+        <li><a href="" sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout</a></li>
+        <li>
+            <a href="" sec:authorize="isAnonymous()" th:href="@{/login}">Login</a>
+        </li>
+    </ul>
+</nav>
+
+
+<!-- Create HTML registration form -->
+<div class="container">
+    <div th:if="${param.success}">
+        <div class="alert alert-info">Record deleted successfully.</div>
+    </div>
+    <div class="row">
+
+        <form th:action="@{/admin/users}" method="post" th:object="${users}">
+
+            <div class ="container">
+
+                <div th:if= "${users != null}">
+
+                    <table border="1" class = "table">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="data : ${users}">
+                            <td th:text="${data.name}"></td>
+                            <td th:text="${data.email}"></td>
+                            <td th:text="${data.role}"></td>
+<!--                            <td> <a th:href="@{/admin/deleteUser/{id}(id=${data.id})}" class="calculate-btn">Delete</a></td>-->
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

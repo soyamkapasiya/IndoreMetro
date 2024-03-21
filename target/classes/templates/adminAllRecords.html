@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Admin</title>
+</head>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Poppins', sans-serif;
+    }
+
+
+    /* Navbar */
+    .navbar {
+        background-color: #fff;
+        color: #000;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .navbar h1 {
+        margin: 0;
+    }
+
+    .nav-links {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+    }
+
+    .nav-links li {
+        margin-right: 30px;
+    }
+
+    .nav-links a {
+        text-decoration: none;
+        color: #000; /* Changed text color to black */
+        position: relative;
+    }
+
+    .nav-links a::after {
+        content: "";
+        display: block;
+        width: 0;
+        height: 3px;
+        background-color: crimson; /* Changed line color to black */
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        transition: width 0.3s ease-in-out;
+    }
+
+    .nav-links a:hover::after {
+        width: 100%;
+        left: 0;
+    }
+
+
+    /* popup */
+
+    .popup {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #d9edf7;
+        border-color: #bce8f1;
+        color: #31708f;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        padding: 15px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+    }
+
+    .popup .alert {
+        margin: 0;
+        font-size: 16px;
+    }
+
+
+
+
+
+    /* table  */
+
+    .table {
+        width: 80%;
+        margin: 20px auto;
+        border-collapse: collapse;
+    }
+
+    .table th,
+    .table td {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: left;
+    }
+
+    .table th {
+        background-color: crimson;
+        color: white;
+    }
+
+
+
+
+
+    /* button */
+
+    .btn {
+        display: inline-block;
+        padding: 4px 10px;
+        background-color: #dc3545;
+        color: #fff;
+        text-decoration: none;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .btn:hover {
+        background-color: #c82333;
+    }
+
+</style>
+
+<body>
+<!-- create navigation bar ( header) -->
+<nav class="navbar">
+    <h1>Indore Metro</h1>
+    <ul class="nav-links">
+        <li><a href="" th:href="@{/}">Home</a></li>
+        <li><a href="" th:href="@{/aboutUs}">Trip</a></li>
+        <li><a href="" th:href="@{/admin/users}">Users</a></li>
+        <li><a href="" th:href="@{/admin/allRecords}">AllRecords</a></li>
+        <li><a href="" th:href="@{/admin/feedBack}">Feedbacks</a></li>
+        <li><a href="" sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout</a></li>
+        <li>
+            <a href="" sec:authorize="isAnonymous()" th:href="@{/login}">Login</a>
+        </li>
+    </ul>
+</nav>
+<div class="container">
+    <div th:if="${param.success}" class="popup">
+        <div class="alert alert-info">Record deleted successfully.</div>
+    </div>
+    <div class="row">
+
+
+
+        <form th:action="@{/admin/allRecords}" method="post" th:object="${data}">
+
+
+            <div class ="container">
+
+                <div th:if= "${data != null}">
+
+                    <table border="1" class = "table">
+                        <thead>
+                        <tr>
+                            <th>
+
+                                From
+                            </th>
+                            <th>
+
+                                To
+                            </th>
+                            <th>
+
+                                Time
+                            </th>
+                            <th>
+
+                                Metro Name
+                            </th>
+                            <th>
+
+                                Price
+                            </th>
+                            <th> Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="metro : ${data}">
+                            <td th:text="${metro.fromDestination}"></td>
+                            <td th:text="${metro.toDestination}"></td>
+                            <td th:text="${metro.time}"></td>
+                            <td th:text="${metro.metroName}"></td>
+                            <td th:text="${metro.price}"></td>
+                            <td> <a th:href="@{/admin/delete/{id}(id=${metro.id})}" class="btn">Delete</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

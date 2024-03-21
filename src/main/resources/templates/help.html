@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="help.css" />
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+
+
+
+
+
+        /* Navbar */
+        .navbar {
+            background-color: #fff;
+            color: #000;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .navbar h1 {
+            margin: 0;
+        }
+
+        .nav-links {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .nav-links li {
+            margin-right: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #000;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: "";
+            display: block;
+            width: 0;
+            height: 3px;
+            background-color: crimson;
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s ease-in-out;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+            left: 0;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /* Heading */
+
+        h1{
+            text-align: center;
+        }
+
+        hr {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            border: none;
+            border-bottom: 2px solid crimson;
+            width: 80%;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+
+
+
+
+
+
+
+
+
+        /* Card */
+        .instruction-card {
+            max-width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgb(255, 213, 205);
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+
+        .one{
+            background-color: rgb(255, 213, 205);
+        }
+
+        .two{
+            background-color: rgb(205, 239, 255);
+        }
+
+        .three{
+            background-color: rgb(207, 255, 205);
+        }
+
+
+
+
+        .one button{
+            background-color: crimson;
+            border: 2px solid crimson;
+            border-radius: 0.5rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .two button{
+            background-color: rgb(0, 0, 139);
+            border-radius: 0.5rem;
+            border: 2px solid rgb(0, 0, 139);
+            transition: background-color 0.3s ease;
+        }
+
+        .three button{
+            background-color: rgb(0, 100, 0);
+            border: 2px solid rgb(0, 100, 0);
+            border-radius: 0.5rem;
+            transition: background-color 0.3s ease;
+        }
+
+
+
+        .one button:hover{
+            background-color: #fff;
+            color: crimson;
+            border: 2px solid crimson;
+        }
+
+        .two button:hover{
+            background-color: #fff;
+            color: rgb(0, 0, 139);
+            border: 2px solid rgb(0, 0, 139);
+        }
+
+        .three button:hover{
+            background-color: #fff;
+            color: rgb(0, 100, 0);
+            border: 2px solid rgb(0, 100, 0);
+        }
+
+
+
+
+        .instruction {
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .instruction-card-heading {
+            margin: 0;
+            text-align: center;
+        }
+
+        .navigation-btn {
+            font-family: poppins;
+            font-size: 17px;
+            width: 150px;
+            height: 40px;
+            padding: 0;
+            border: none;
+            border-radius: 0;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            /* background-color: crimson; */
+            color: #fff;
+            cursor: pointer;
+            /* border: 2px solid crimson; */
+            transition: background-color 0.3s ease;
+        }
+
+        /* .navigation-btn:hover {
+            background-color: #fff;
+            color: crimson;
+            border: 2px solid crimson;
+        } */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        .contact-section {
+            /* background-color: rgb(255, 174, 191); */
+            /* text-align: center; */
+            max-width: 80%;
+            margin: 0 auto;
+        }
+
+        .section-heading {
+            font-size: 24px;
+            color: #333;
+        }
+
+        .contact-info p {
+            font-size: 16px;
+            color: #666;
+            margin: 10px 0;
+        }
+
+        .contact-info .social-media {
+            margin-top: 20px;
+        }
+
+        .contact-info .social-media ul {
+            padding: 0;
+            list-style: none;
+        }
+
+        .contact-info .social-media ul li {
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        .contact-info .social-media ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .contact-info .social-media ul li a:hover {
+            color: #007bff;
+        }
+
+
+
+
+
+
+
+
+
+
+        /* footer */
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            font-size: 14px;
+        }
+        footer p {
+            margin: 5px 0;
+        }
+        footer a {
+            color: #fff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<!-- create navigation bar ( header) -->
+<nav class="navbar">
+    <h1>Indore Metro</h1>
+    <ul class="nav-links">
+        <li><a href="" th:href="@{/}">Home</a></li>
+        <li><a href="" th:href="@{/aboutUs}">About Us</a></li>
+        <li><a href="" th:href="@{/faq}">FAQ</a></li>
+        <li><a href="" th:href="@{/feedback}">FeedBack</a></li>
+        <li><a href="" sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout</a></li>
+        <li>
+            <a href="" sec:authorize="isAnonymous()" th:href="@{/login}">Login</a>
+            <span sec:authorize="isAnonymous()" > / </span>
+            <a href="" sec:authorize="isAnonymous()" th:href="@{/registration}">Register</a>
+        </li>
+    </ul>
+</nav>
+
+<h1>Metro Services Help Center</h1>
+<hr />
+
+
+
+
+<div class="instruction-card one">
+    <h2 class="instruction-card-heading">Ticket Booking Instructions</h2>
+    <p class="instruction">
+        1. <strong>Navigate to Ticket Booking:</strong> Click on the "Book Ticket" button to access the ticket booking page.
+    </p>
+    <p class="instruction">
+        2. <strong>Select Inputs:</strong> Choose your source and destination stations from the dropdown menus.
+    </p>
+    <p class="instruction">
+        3. <strong>Choose Date and Time:</strong> Select your preferred travel date and time.
+    </p>
+    <p class="instruction">
+        4. <strong>Enter Details:</strong> Fill out the required passenger information fields.
+    </p>
+    <p class="instruction">
+        5. <strong>Review and Confirm:</strong> Double-check your details and confirm your booking by clicking the "Confirm" button.
+    </p>
+    <a href="index.html"><button class="navigation-btn">Book Ticket</button></a>
+
+</div>
+
+
+
+
+
+
+<div class="instruction-card two">
+    <h2 class="instruction-card-heading">Route Details Instructions</h2>
+    <p class="instruction">
+        1. <strong>Navigate to Route Details:</strong> Click on the "View Route Details" button to access the route details page.
+    </p>
+    <p class="instruction">
+        2.<strong>Select Input:</strong> Choose your source and destination stations from the dropdown menus.
+    </p>
+    <p class="instruction">
+        3.<strong> View Route Info:</strong> Once selected, you will see detailed route information, including stops, distances, and estimated travel time.
+    </p>
+    <p class="instruction">
+        4.<strong> Explore Route Alternatives:</strong> You can explore alternative routes by adjusting your source and destination stations.
+    </p>
+    <a href="index.html"><button class="navigation-btn">Route Details</button></a>
+
+</div>
+
+
+
+
+<div class="instruction-card three">
+    <h2 class="instruction-card-heading">
+        Instructions for Reporting Lost Items
+    </h2>
+    <p class="instruction">
+        1. <strong>Verify Availability:</strong> Before reporting a lost item,
+        please check the "Found Items" table below to see if your item has been
+        reported as found by another user.
+    </p>
+    <p class="instruction">
+        2. <strong>Complete the Form:</strong> If you do not find your lost item
+        in the "Found Items" table, please fill out the form below with accurate
+        details about your lost item.
+    </p>
+    <p class="instruction">
+        3. <strong>Provide Detailed Information:</strong> Include as much detail
+        as possible about the lost item, including its name, description, and
+        where it was last seen. Providing detailed information will help in
+        identifying and locating the lost item.
+    </p>
+    <p class="instruction">
+        4. <strong>Contact Information:</strong> Make sure to provide valid
+        contact information so that we can reach out to you if your lost item is
+        found.
+    </p>
+    <p class="instruction">
+        5. <strong>Submit Form:</strong> Once you have filled out the form,
+        click the "Submit" button to send the information. Our team will review
+        your submission and get in touch with you if we have any updates
+        regarding your lost item.
+    </p>
+    <a href="lostAndFound.html"><button class="navigation-btn">Lost & Found</button></a>
+
+</div>
+
+<div class="instruction-card one">
+    <h2 class="instruction-card-heading">Instructions for Using Fare Calculator</h2>
+    <p class="instruction">
+        1. <strong>Enter Source and Destination:</strong> Input the source and destination locations in the respective fields.
+    </p>
+    <p class="instruction">
+        2. <strong>Calculate Fare:</strong> Click on the "Calculate Fare" button to determine the fare for the journey.
+    </p>
+    <p class="instruction">
+        3. <strong>View Fare:</strong> The fare for the journey will be displayed below the button in the format "Fare: ₹X", where X is the calculated fare amount.
+    </p>
+    <p class="instruction">
+        4. <strong>Note:</strong> Special fares may be applicable on certain days such as Sundays and national holidays. This fare calculator provides the fare for a single journey token.
+    </p>
+    <a href="index.html"><button class="navigation-btn">Fare Calculator</button></a>
+
+</div>
+
+
+
+<div class="instruction-card two">
+    <h2 class="instruction-card-heading">Instructions for Map Section</h2>
+    <p class="instruction">1. Explore the map to discover nearby attractions and landmarks.</p>
+    <p class="instruction">2. Use the search functionality to find specific locations within the map.</p>
+    <p class="instruction">3. Download the map for offline access by clicking the "Download" button.</p>
+    <a href="index.html"><button class="navigation-btn">Map Section</button></a>
+
+</div>
+
+
+
+
+
+<div class="instruction-card three">
+    <h2 class="instruction-card-heading">Instructions for Station Search</h2>
+    <p class="instruction">1. Enter the name of the station you want to search for in the input field.</p>
+    <p class="instruction">2. Click the "Search" button to find the station within the map.</p>
+    <a href="index.html"><button class="navigation-btn">Search Station</button></a>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<h1 class="section-heading">Contact Us</h1>
+<hr>
+<div class="contact-section">
+    <div class="contact-info">
+        <p>For any inquiries or assistance, feel free to contact us using the information below:
+        </p>
+        <p><strong>Email:</strong> info@indoremetro.com</p>
+        <p><strong>Phone:</strong> +91 98765 43210</p>
+        <p><strong>Address:</strong> 123 Metro Avenue, Indore, India</p>
+        <p><strong>Hours of Operation:</strong> Monday - Friday: 9am - 5pm</p>
+        <div class="social-media">
+            <p><strong>Social Media:</strong></p>
+            <ul>
+                <li><a href="https://instagram.com/IndoreMetro">Instagram</a></li>
+                <li><a href="https://facebook.com/IndoreMetro">Facebook</a></li>
+                <li><a href="https://twitter.com/IndoreMetro">Twitter</a></li>
+                <li><a href="https://youtube.com/IndoreMetro">YouTube</a></li>
+                <li><a href="https://linkedin.com/company/IndoreMetro">LinkedIn</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Add more sections with detailed information for other help topics -->
+
+<footer>
+    <p>Indore Mero &copy; 2024. All rights reserved.</p>
+    <p>
+        Contact us:
+        <a href="mailto:info@indoremero.com">info@indoremero.com</a>
+    </p>
+    <p>
+        Follow us:
+        <a href="https://www.facebook.com/IndoreMero" target="_blank"
+        >Facebook</a
+        >
+        |
+        <a href="https://twitter.com/IndoreMero" target="_blank">Twitter</a> |
+        <a href="https://www.instagram.com/indoremero/" target="_blank"
+        >Instagram</a
+        >
+    </p>
+    <p>Address: 123 Metro Plaza, Indore, India</p>
+</footer>
+</div>
+</body>
+</html>

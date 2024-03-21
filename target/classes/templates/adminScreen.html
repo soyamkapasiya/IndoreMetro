@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" >
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Admin Screen</title>
+    <link rel="stylesheet"  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+</head>
+<style>
+    @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    hr {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            border: none;
+            border-bottom: 2px solid crimson;
+            width: 80%;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+
+    /* Navbar */
+    .navbar {
+        background-color: #fff; /* Changed background color to white */
+        color: #000; /* Changed text color to black */
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Added shadow effect */
+    }
+
+    .navbar h1 {
+        margin: 0;
+    }
+
+    .nav-links {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+    }
+
+    .nav-links li {
+        margin-right: 30px;
+    }
+
+    .nav-links a {
+        text-decoration: none;
+        color: #000; /* Changed text color to black */
+        position: relative;
+    }
+
+    .nav-links a::after {
+        content: "";
+        display: block;
+        width: 0;
+        height: 3px;
+        background-color: crimson; /* Changed line color to black */
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        transition: width 0.3s ease-in-out;
+    }
+
+    .nav-links a:hover::after {
+        width: 100%;
+        left: 0;
+    }
+
+    input, label {
+        display:block;
+    }
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    .admin-panel {
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .options{
+        display: grid;
+        grid-template-columns: auto auto;
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .section {
+        margin-bottom: 20px;
+        align-content: center;
+        text-align: center;
+    }
+
+    h1{
+        text-align: center;
+    }
+
+    h2 {
+        margin-bottom: 10px;
+    }
+
+    button {
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #ff3333;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    button:hover button{
+        color: #ff3333;
+    }
+
+    .instruction-card {
+            max-width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgb(255, 213, 205);
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .instruction {
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .instruction-card-heading{
+            margin: 0;
+            text-align: center;
+        }
+
+</style>
+
+<body>
+<!-- create navigation bar ( header) -->
+<nav class="navbar">
+    <h1>Indore Metro</h1>
+    <ul class="nav-links">
+        <li><a href="" th:href="@{/}">Home</a></li>
+        <li><a href="" th:href="@{/aboutUs}">Trip</a></li>
+        <li><a href="" th:href="@{/admin/users}">Users</a></li>
+        <li><a href="" th:href="@{/admin/allRecords}">AllRecords</a></li>
+        <li><a href="" th:href="@{/admin/feedBack}">Feedbacks</a></li>
+        <li><a href="" sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout</a></li>
+        <li>
+            <a href="" sec:authorize="isAnonymous()" th:href="@{/login}">Login</a>
+        </li>
+    </ul>
+</nav>
+
+<!-- Create HTML registration form -->
+
+<div class="container">
+    <h1>Welcome to <span th:text ="*{userDetails}"></span> Dashboard !!</h1>
+</div>
+    
+    <hr />
+    <div class="instruction-card">
+        <h2 class="instruction-card-heading">
+            Instructions 
+        </h2>
+        <p class="instruction">
+            Welcome to the Admin Panel of <strong>Indore Metro</strong> As an administrator, you have access to powerful tools and features to manage and improve our platform. Your role is crucial in ensuring the best possible experience for our users.
+        </p>
+    </div>
+
+    <div class="options">
+        <!-- User Management Section -->
+        <div class="section">
+            <h2>Manage User</h2>
+            <a th:href="@{/admin/users}"><button id="users">Manage</button></a>
+        </div>
+
+        <!-- Station Management Section -->
+        <div class="section">
+            <h2>Manage Station</h2>
+            <button id="addStationBtn">Manage</button>
+        </div>
+
+        <!-- Trip Management Section -->
+        <div class="section">
+            <h2>Manage Trip</h2>
+            <a th:href="@{/admin/manageTrip}"><button id="addTripBtn">Manage</button></a>
+        </div>
+
+        <!-- Notification Section -->
+        <div class="section">
+            <h2>Manage Notifications</h2>
+            <button id="notification">Manage</button>
+            <!-- Add your notification content here -->
+        </div>
+
+        <!-- Feedback Management Section -->
+        <div class="section">
+            <h2>Manage Feedback</h2>
+            <a th:href="@{/admin/feedBack}"><button id="feedBack">Manage</button></a>
+
+        </div>
+    
+</div>
+
+</body>
+
+</html>
