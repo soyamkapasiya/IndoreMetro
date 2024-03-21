@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Template</title>
+
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class= "col-md-6">
+            <label>Date of Departure:</label><div class="textColor"><p th:text ="${date}"/></div>
+        </div>
+        <div class= "col-md-6">
+            <label>Name of Primary Passenger:</label><div class="textColor"><p th:text ="${name}"/></div>
+        </div>
+    </div>
+    <div class = "row">
+        <div class= "col-md-6">
+            <label>Ticket No:</label><div class="textColor"></div>
+        </div>
+        <div class= "col-md-6">
+            <label>No. of Passengers Traveling:</label><div class="textColor"><p th:text ="${noOfPass}"/></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class= "col-md-6">
+            <label>Departure:</label><div class="textColor" ><p th:text ="${From}"/></div>
+        </div>
+        <div class= "col-md-6">
+            <label>Destination:</label><div class="textColor"><p th:text ="${to}"/></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class= "col-md-6">
+            <label>Metro Name:</label><div class="textColor"><p th:text ="${metroName}"/></div>
+        </div>
+    </div>
+</div>
+<h4>Note: Along with the ticket bring Primary Passenger's Id Proof.</h4>
+</body>
+</html>

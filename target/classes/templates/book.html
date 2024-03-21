@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Indore Metro</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+</head>
+<style>
+    @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Poppins', sans-serif;
+    }
+
+
+    /* Navbar */
+    .navbar {
+        background-color: #fff; /* Changed background color to white */
+        color: #000; /* Changed text color to black */
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Added shadow effect */
+    }
+
+    .navbar h1 {
+        margin: 0;
+    }
+
+    .nav-links {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+    }
+
+    .nav-links li {
+        margin-right: 30px;
+    }
+
+    .nav-links a {
+        text-decoration: none;
+        color: #000; /* Changed text color to black */
+        position: relative;
+    }
+
+    .nav-links a::after {
+        content: "";
+        display: block;
+        width: 0;
+        height: 3px;
+        background-color: crimson; /* Changed line color to black */
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        transition: width 0.3s ease-in-out;
+    }
+
+    .nav-links a:hover::after {
+        width: 100%;
+        left: 0;
+    }
+
+
+    .calculate-btn {
+        font-family: poppins;
+        font-size: 17px;
+        width: 150px;
+        height: 40px;
+        padding: 0;
+        border: none;
+        border-radius: 5px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        background-color: crimson;
+        color: #fff;
+        cursor: pointer;
+        border: 2px solid crimson;
+        transition: background-color 0.3s ease;
+    }
+
+    .calculate-btn:hover {
+        background-color: #fff;
+        color: crimson;
+        border: 2px solid crimson;
+    }
+</style>
+
+<body>
+
+<!-- create navigation bar ( header) -->
+<nav class="navbar">
+    <h1>Indore Metro</h1>
+    <ul class="nav-links">
+        <li><a href="" th:href="@{/}">Home</a></li>
+        <li><a href="" th:href="@{/myBooking}">My Booking</a></li>
+        <li><a href="" th:href="@{/feedback}">FeedBack</a></li>
+        <li><a href="" sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout</a></li>
+        <li>
+            <a href="" sec:authorize="isAnonymous()" th:href="@{/login}">Login</a>
+            <span sec:authorize="isAnonymous()" > / </span>
+            <a href="" sec:authorize="isAnonymous()" th:href="@{/registration}">Register</a>
+        </li>
+    </ul>
+</nav>
+
+
+<!-- Create HTML registration form -->
+<div class="container">
+    <div class="row">
+        <!-- success message -->
+        <div th:if="${param.success}">
+            <div class="alert alert-info">Your Bookings Done ,go to My Bookings section to check you booking , by going on Dashboard.</div>
+        </div>
+
+        <h1>Booking</h1>
+
+        <div class= "container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group" style="width: 21%;">
+                        <label class="control-label" for="from">
+                            From </label>
+                        <input id="from" class="form-control"
+                               th:field="*{record.fromDestination}" required readonly="readonly"
+                               autofocus="autofocus" />
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group" style="width: 21%;">
+                        <label class="control-label" for="to"> To
+                        </label> <input id="to" class="form-control"
+                                        th:field="*{record.toDestination}" required readonly="readonly" autofocus="autofocus"
+                    />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group" >
+                        <label  class="control-label"  for="filterDate">Date
+                        </label><input type="date" id="filterDate" required  autofocus="autofocus" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group" style="width: 21%;">
+                        <label class="control-label" for="price"> Price </label>
+                        <input id="price" class="form-control" th:field="*{record.price}" required readonly="readonly" autofocus="autofocus"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group" style="width: 21%;">
+                        <label class="control-label" for="noOfPersons"> No of Persons
+                        </label> <input id="noOfPersons" class="form-control" type="number"
+                                        th:field="*{record.noOfPersons}" required
+
+                                        autofocus="autofocus" onchange="updateFiled();"
+                    />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group" style="width: 21%;">
+                        <label class="control-label" for="totalCalculated"> Total Amount to be Paid
+                        </label> <input id="totalCalculated" class="form-control"
+                                        th:field="*{record.totalCalculated}" required readonly="readonly" autofocus="autofocus"
+                    />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group" style="width: 21%;">
+                        <label class="control-label" for="busName"> Bus Name
+                        </label> <input id="busName" class="form-control"
+                                        th:field="*{record.metroName}" required readonly="readonly" autofocus="autofocus"
+                    />
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group" style="width: 21%;">
+                        <label class="control-label" for="ticketId"> Ticket Id </label>
+                        <input id="ticketId" class="form-control" th:field="*{record.ticketID}" required readonly="readonly" autofocus="autofocus"/>
+                    </div>
+                </div>
+
+
+
+                <div class="col-md-6">
+
+                    <div class="form-group" style="width: 21%;">
+                        <label class="control-label" for="time"> Departure Time
+                        </label> <input id="time" class="form-control"
+                                        th:field="*{record.time}" required readonly="readonly" autofocus="autofocus"
+                    />
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <button type="submit" onclick="paymentStarted()" class="calculate-btn" style="margin-top:25px;"> Pay </button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+                        <span>Go To Dashboard <a href="/"
+                                                 th:href="@{/dashboard}">DashBoard
+                                </a></span>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function updateFiled()
+    {
+        var ticketId = document.getElementById("ticketId").value = uid();
+        var price= document.getElementById("price").value;
+        var totalpassenger = document.getElementById("noOfPersons").value;
+        var totalValue = price * totalpassenger;
+
+        // console.log(totalValue);
+
+        document.getElementById("totalCalculated").value = totalValue;
+    }
+
+    const uid = function(){
+        return Date.now().toString(36) + Math.random().toString(36).substr(2);
+    };
+
+    const paymentStarted = () =>
+    {
+        console.log("payment Started.....");
+        let amount = $("#totalCalculated").val()
+        let from = $("#from").val()
+        let to = $("#to").val()
+        let date = $("#filterDate").val()
+        let noOfPassenger = $("#noOfPersons").val()
+        let time = $("#time").val()
+        let ticketId = $("#ticketId").val()
+        let metroName = $("#busName").val()
+        let price = $("#price").val()
+
+        console.log(amount);
+
+        if(amount===""||amount==null)
+        {
+            alert("Amount t is required......");
+            return;
+        }
+
+        $.ajax(
+            {
+                url:'/dashboard/booking',
+                data:JSON.stringify({amount:amount,from:from,to:to,date:date,noOfPassenger:noOfPassenger,time:time,ticketId:ticketId,metroName:metroName,price:price}),
+                contentType:'application/json',
+                type:'POST',
+                dataType:'json',
+                success:function (response)
+                {
+                    console.log(response)
+                    if (response.status==='created')
+                    {
+                        let option ={
+                            key: 'rzp_test_CAOmLVEJtoNizm',
+                            amount: response.amount,
+                            currency: 'INR',
+                            name: 'Indore Metro Pvt. Ltd.',
+                            description:'Payment',
+                            image:'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
+                            order_id:response.id,
+                            handler: function (response){
+
+                                console.log(response.razorpay_payment_id)
+                                console.log(response.razorpay_order_id)
+                                console.log(response.razorpay_signature)
+
+                                console.log("Payment Successfully.......")
+
+                                window.location.href="/myBooking";
+                            },
+                            prefill: {
+                                name: "",
+                                email: "",
+                                contact: ""
+                            },
+                            notes: {
+                                address: "Razorpay Corporate Office",
+                            },
+                            theme: {
+                                "color": "#3399cc"
+                            },
+                        };
+
+                        let rzp1 = new Razorpay(option);
+                        rzp1.on('payment.failed', function (response){
+                            alert(response.error.code);
+                            alert(response.error.description);
+                            alert(response.error.source);
+                            alert(response.error.step);
+                            alert(response.error.reason);
+                            alert(response.error.metadata.order_id);
+                            alert(response.error.metadata.payment_id);
+                        });
+
+                        rzp1.open();
+                    }
+                }
+            },
+
+        )
+
+    }
+
+
+
+</script>
+</body>
+</html>

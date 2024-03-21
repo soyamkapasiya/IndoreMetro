@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="lostAndFound.css" />
+    <title>Indore Metro</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+
+        /* Navbar */
+        .navbar {
+            background-color: #fff;
+            color: #000;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .navbar h1 {
+            margin: 0;
+        }
+
+        .nav-links {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .nav-links li {
+            margin-right: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #000;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: "";
+            display: block;
+            width: 0;
+            height: 3px;
+            background-color: crimson;
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s ease-in-out;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+            left: 0;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /* Heading */
+
+        h1{
+            text-align: center;
+        }
+
+        hr {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            border: none;
+            border-bottom: 2px solid crimson;
+            width: 80%;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /* Card */
+
+        .instruction-card {
+            max-width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgb(255, 213, 205);
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .instruction {
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .instruction-card-heading{
+            margin: 0;
+            text-align: center;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /* Table */
+
+        .found-items-table {
+            max-width: 80%;
+            margin: 20px auto;
+        }
+
+        .found-items-table h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .found-items-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .found-items-table th,
+        .found-items-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .found-items-table th {
+            background-color: crimson;
+            color: white;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /* Lost form */
+
+        .lost-item-form {
+            text-align: center;
+            width: 50%;
+            margin: 30px auto;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: white;
+        }
+
+        .lost-item-form h2 {
+            margin-top: 0;
+        }
+
+        .lost-item-form .note {
+            color: #888;
+        }
+
+        .lost-item-form button {
+            padding: 14px 28px;
+            cursor: pointer;
+            margin-top: 5px;
+            align-self: center;
+            font-family: poppins;
+            font-size: 17px;
+            width: 150px;
+            height: 40px;
+            padding: 0;
+            border: none;
+            border-radius: 0;
+            background-color: crimson;
+            color: #fff;
+            cursor: pointer;
+            border: 2px solid crimson;
+            transition: background-color 0.3s ease;
+        }
+
+        .lost-item-form button:hover {
+            background-color: #fff;
+            color: crimson;
+            border: 2px solid crimson;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /* footer */
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            font-size: 14px;
+        }
+        footer p {
+            margin: 5px 0;
+        }
+        footer a {
+            color: #fff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<!-- create navigation bar ( header) -->
+<nav class="navbar">
+    <h1>Indore Metro</h1>
+    <ul class="nav-links">
+        <li><a href="" th:href="@{/}">Home</a></li>
+        <li><a href="" th:href="@{/aboutUs}">About Us</a></li>
+        <li><a href="" th:href="@{/faq}">FAQ</a></li>
+        <li><a href="" th:href="@{/feedback}">FeedBack</a></li>
+        <li><a href="" sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout</a></li>
+        <li>
+            <a href="" sec:authorize="isAnonymous()" th:href="@{/login}">Login</a>
+            <span sec:authorize="isAnonymous()" > / </span>
+            <a href="" sec:authorize="isAnonymous()" th:href="@{/registration}">Register</a>
+        </li>
+    </ul>
+</nav>
+
+<h1>Lost and Found</h1>
+<hr />
+<div class="instruction-card">
+    <h2 class="instruction-card-heading">
+        Instructions for Reporting Lost Items
+    </h2>
+    <p class="instruction">
+        1. <strong>Verify Availability:</strong> Before reporting a lost item,
+        please check the "Found Items" table below to see if your item has been
+        reported as found by another user.
+    </p>
+    <p class="instruction">
+        2. <strong>Complete the Form:</strong> If you do not find your lost item
+        in the "Found Items" table, please fill out the form below with accurate
+        details about your lost item.
+    </p>
+    <p class="instruction">
+        3. <strong>Provide Detailed Information:</strong> Include as much detail
+        as possible about the lost item, including its name, description, and
+        where it was last seen. Providing detailed information will help in
+        identifying and locating the lost item.
+    </p>
+    <p class="instruction">
+        4. <strong>Contact Information:</strong> Make sure to provide valid
+        contact information so that we can reach out to you if your lost item is
+        found.
+    </p>
+    <p class="instruction">
+        5. <strong>Submit Form:</strong> Once you have filled out the form,
+        click the "Submit" button to send the information. Our team will review
+        your submission and get in touch with you if we have any updates
+        regarding your lost item.
+    </p>
+    <!-- Add other instructions here -->
+</div>
+
+<div class="found-items-table">
+    <h2>Found Items</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Item</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Found Location</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Mobile Phone</td>
+            <td>2024-02-15</td>
+            <td>14:30</td>
+            <td>Main Street</td>
+        </tr>
+        <tr>
+            <td>Bag</td>
+            <td>2024-02-14</td>
+            <td>09:45</td>
+            <td>Mall Parking Lot</td>
+        </tr>
+        <tr>
+            <td>Keys</td>
+            <td>2024-02-13</td>
+            <td>17:20</td>
+            <td>Public Park</td>
+        </tr>
+        <tr>
+            <td>Wallet</td>
+            <td>2024-02-12</td>
+            <td>11:10</td>
+            <td>Bus Stand</td>
+        </tr>
+        <tr>
+            <td>Umbrella</td>
+            <td>2024-02-11</td>
+            <td>15:55</td>
+            <td>Cafeteria</td>
+        </tr>
+        <tr>
+            <td>Laptop</td>
+            <td>2024-02-10</td>
+            <td>08:40</td>
+            <td>Library</td>
+        </tr>
+        <tr>
+            <td>Watch</td>
+            <td>2024-02-09</td>
+            <td>12:20</td>
+            <td>Train Station</td>
+        </tr>
+        <tr>
+            <td>Book</td>
+            <td>2024-02-08</td>
+            <td>16:15</td>
+            <td>Restaurant</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="lost-item-form">
+    <h2>Lost Item Form</h2>
+    <p class="note">
+        If you have lost any item, please fill out the form below with the
+        details of the lost item.
+    </p>
+    <a href="" th:href="@{/lost}"
+    ><button class="lost-form-btn">Report Lost Item</button></a
+    >
+</div>
+
+<footer>
+    <p>Indore Mero &copy; 2024. All rights reserved.</p>
+    <p>
+        Contact us: <a href="mailto:info@indoremero.com">info@indoremero.com</a>
+    </p>
+    <p>
+        Follow us:
+        <a href="https://www.facebook.com/IndoreMero" target="_blank"
+        >Facebook</a
+        >
+        | <a href="https://twitter.com/IndoreMero" target="_blank">Twitter</a> |
+        <a href="https://www.instagram.com/indoremero/" target="_blank"
+        >Instagram</a
+        >
+    </p>
+    <p>Address: 123 Metro Plaza, Indore, India</p>
+</footer>
+</body>
+</html>

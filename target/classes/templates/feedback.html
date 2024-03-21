@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Indore Metro</title>
+</head>
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Poppins', sans-serif;
+    }
+
+
+    /* Navbar */
+    .navbar {
+        background-color: #fff;
+        color: #000;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar h1 {
+        margin: 0;
+    }
+
+    .nav-links {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+    }
+
+    .nav-links li {
+        margin-right: 30px;
+    }
+
+    .nav-links a {
+        text-decoration: none;
+        color: #000;
+        /* Changed text color to black */
+        position: relative;
+    }
+
+    .nav-links a::after {
+        content: "";
+        display: block;
+        width: 0;
+        height: 3px;
+        background-color: crimson;
+        /* Changed line color to black */
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        transition: width 0.3s ease-in-out;
+    }
+
+    .nav-links a:hover::after {
+        width: 100%;
+        left: 0;
+    }
+
+
+
+
+
+    /* popup */
+
+    .popup {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #d9edf7;
+        border-color: #bce8f1;
+        color: #31708f;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        padding: 15px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+    }
+
+    .popup .alert {
+        margin: 0;
+        font-size: 16px;
+    }
+
+
+
+
+
+    /* form */
+    /* booking form */
+    .booking-form {
+        width: 40%;
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-color: #ffffff;
+        margin: 20px auto;
+    }
+
+    .booking-form h1 {
+        text-align: center;
+    }
+
+    .booking-form .note {
+        font-size: 16px;
+        color: #888;
+        margin-bottom: 20px;
+    }
+
+    .booking-form form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .booking-form .input-group {
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .booking-form label {
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .booking-form input,
+    .booking-form textarea {
+        font-family: poppins;
+        /* width: calc(100% - 32px) !important; */
+        width: 100%;
+        padding: 12px 16px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        margin-top: 8px;
+        margin-bottom: 10px;
+        box-sizing: border-box;
+    }
+
+    .booking-form button {
+        padding: 14px 28px;
+        cursor: pointer;
+        margin-top: 20px;
+        align-self: center;
+        font-family: poppins;
+        font-size: 17px;
+        width: 150px;
+        height: 40px;
+        padding: 0;
+        border: none;
+        border-radius: 0;
+        background-color: crimson;
+        color: #fff;
+        cursor: pointer;
+        border: 2px solid crimson;
+        transition: background-color 0.3s ease;
+    }
+
+    .booking-form button:hover {
+        background-color: #fff;
+        color: crimson;
+        border: 2px solid crimson;
+    }
+
+    .booking-form hr {
+        color: crimson;
+    }
+</style>
+
+<body>
+
+<nav class="navbar">
+    <h1>Indore Metro</h1>
+    <ul class="nav-links">
+        <li><a href="" th:href="@{/}">Home</a></li>
+        <li><a href="" th:href="@{/aboutUs}">About Us</a></li>
+        <li><a href="" th:href="@{/faq}">FAQ</a></li>
+        <li><a href="" th:href="@{/feedback}">FeedBack</a></li>
+        <li><a href="" sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout</a></li>
+        <li>
+            <a href="" sec:authorize="isAnonymous()" th:href="@{/login}">Login</a>
+            <span sec:authorize="isAnonymous()"> / </span>
+            <a href="" sec:authorize="isAnonymous()" th:href="@{/registration}">Register</a>
+        </li>
+    </ul>
+</nav>
+
+
+<!-- Popup -->
+<div th:if="${param.success}" class="popup">
+    <div class="alert alert-info">Your Feedback is been recorded.</div>
+</div>
+
+
+<!-- form -->
+<div class="booking-form">
+    <h1>Feedback Form</h1>
+    <hr>
+    <form th:action="@{/feedback}" method="post" th:object="${feedback}">
+        <div class="form-group">
+            <label class="control-label" for="name">
+                Name </label>
+            <input id="name" class="form-control" th:field="*{name}" required readonly="readonly"
+                   autofocus="autofocus" />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="email">
+                Email </label>
+            <input id="email" class="form-control" th:field="*{emailId}" required readonly="readonly"
+                   autofocus="autofocus" />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="rating">
+                Rating(Out of 10) </label>
+            <input id="rating" class="form-control" th:field="*{rating}" required autofocus="autofocus" />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="comment">
+                Comment </label>
+            <textarea id="comment" class="form-control" th:field="*{comments}" required
+                      autofocus="autofocus"></textarea>
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">
+                Submit </button>
+
+        </div>
+
+    </form>
+</div>
+
+</body>
+
+</html>
