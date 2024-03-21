@@ -330,6 +330,8 @@
 
         }
 
+
+
         .notification h2 {
             margin-top: 0;
         }
@@ -589,16 +591,16 @@
             <h2>Map</h2>
             <hr />
             <!-- Horizontal line -->
-            <img src="images/map_img.png" alt="Map Image" class="map-image" />
-            <button class="download-btn">Download</button>
+            <img style="margin-left: 25px" src="images/map_img.png" alt="Map Image" class="map-image" />
+            <br>
+            <button style="margin-left: 25px; margin-top: 5px" class="download-btn">Download</button>
         </div>
     </div>
 
-    <div class="card notification">
+    <div class="card notification" style="overflow-x: hidden">
         <h2>Notification and Alerts</h2>
         <hr />
         <!-- Horizontal line below the heading -->
-        <section>
         <div class="notification-item" th:each="obj : ${notification}" th:reverse="true">
 
             <img src="images/notification_img.png" alt="Notification Icon" />
@@ -606,14 +608,13 @@
                 <p class="notification-date" th:text="${obj.getDate()}"></p>
                 <h3 th:text="${obj.getHeading()}"></h3>
                 <p th:text="${obj.getDescription()}">.</p>
+
+                <a href="" th:href="@{/notificationPanel}">
+                    <button class="view-all-btn">View All</button></a>
             </div>
 
         </div>
-        </section>
-
         <!-- End of notification items -->
-        <a href="" th:href="@{/notificationPanel}">
-            <button class="view-all-btn">View All</button></a>
     </div>
 </div>
 
@@ -649,11 +650,11 @@
 <script>
 
     const defaultSetter = () => {
-         var sourceDefault =document.getElementById("sourceId");
+        var sourceDefault =document.getElementById("sourceId");
         var destinationDefault =document.getElementById("destinationId");
 
-         document.getElementById("sourceDefault").value = sourceDefault;
-         document.getElementById("destinationDefault").value = destinationDefault;
+        document.getElementById("sourceDefault").value = sourceDefault;
+        document.getElementById("destinationDefault").value = destinationDefault;
     }
 
     document.addEventListener("DOMContentLoaded", function() {
