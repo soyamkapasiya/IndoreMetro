@@ -135,7 +135,7 @@
 
             <div class ="container">
 
-                <div th:if= "${users != null}">
+                <div th:if= "${users != null}" th:object="${role}">
 
                     <table border="1" class = "table">
                         <thead>

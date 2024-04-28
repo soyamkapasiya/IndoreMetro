@@ -239,5 +239,11 @@ public class HomeController
         return "lostRequest";
     }
 
+    @GetMapping("/SmartCard")
+    public String smartCard()
+    {
+        return "smartCard";
+    }
+
 
 }

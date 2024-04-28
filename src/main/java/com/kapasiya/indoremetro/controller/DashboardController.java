@@ -34,6 +34,7 @@ import java.util.Optional;
 @RequestMapping("/dashboard")
 public class DashboardController
 {
+    @Autowired
     private DefaultUserService userService;
 
     @Autowired
